@@ -104,6 +104,7 @@ pytestdebug.log
 *.mo
 
 # Django stuff:
+key.py
 
 # Flask stuff:
 instance/
