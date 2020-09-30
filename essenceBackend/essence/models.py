@@ -74,3 +74,4 @@ class Project(models.Model):
     endeavor = models.OneToOneField(Endeavor, on_delete=models.CASCADE)
 
 #user
+

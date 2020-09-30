@@ -1,7 +1,6 @@
 from rest_framework import serializers
 from essence.models import *
 
-
 class CardSerializer(serializers.ModelSerializer):
 
     class Meta:
