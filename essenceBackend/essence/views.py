@@ -2,11 +2,11 @@ from django.http.response import JsonResponse
 from rest_framework.parsers import JSONParser
 from rest_framework import status
 
-from essence.models import Card
+from essence.models import *
 from essence.serializers import CardSerializer
 from rest_framework.decorators import api_view
 
-
+#Views for CARD
 @api_view(['GET', 'POST', 'DELETE'])
 def card_list(request):
     if request.method == 'GET':
