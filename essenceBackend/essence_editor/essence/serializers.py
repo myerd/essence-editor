@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from essence.models import *
+from .models import *
 
 
 class CardSerializer(serializers.ModelSerializer):
