@@ -1,22 +1,13 @@
 from django.db import models
 
 
-#General models:
-class Card(models.Model):
-    title = models.CharField(max_length=70, blank=False, default='')
-    description = models.CharField(max_length=200, blank=False, default='')
-    completed = models.BooleanField(default=False)
-
-
 #models for solution:
 class Requirements(models.Model):
     description = models.CharField(max_length=200, blank=False, default='')
-    cards = models.ManyToManyField(Card)
 
 
 class SoftwareSystems(models.Model):
     description = models.CharField(max_length=200, blank=False, default='')
-    cards = models.ManyToManyField(Card)
 
 
 class Solution(models.Model):
@@ -28,12 +19,10 @@ class Solution(models.Model):
 #Models for customer:
 class Opportunity(models.Model):
     description = models.CharField(max_length=200, blank=False, default='')
-    cards = models.ManyToManyField(Card)
 
 
 class Stakeholders(models.Model):
     description = models.CharField(max_length=200, blank=False, default='')
-    cards = models.ManyToManyField(Card)
 
 
 class Customer(models.Model):
@@ -45,17 +34,14 @@ class Customer(models.Model):
 #Models for endeavor:
 class Team(models.Model):
     description = models.CharField(max_length=200, blank=False, default='')
-    cards = models.ManyToManyField(Card)
 
 
 class Work(models.Model):
     description = models.CharField(max_length=200, blank=False, default='')
-    cards = models.ManyToManyField(Card)
 
 
 class WayOfWork(models.Model):
     description = models.CharField(max_length=200, blank=False, default='')
-    cards = models.ManyToManyField(Card)
 
 
 class Endeavor(models.Model):
@@ -72,6 +58,24 @@ class Project(models.Model):
     solution = models.OneToOneField(Solution, on_delete=models.CASCADE)
     customer = models.OneToOneField(Customer, on_delete=models.CASCADE)
     endeavor = models.OneToOneField(Endeavor, on_delete=models.CASCADE)
+
+
+#General models:
+class Card(models.Model):
+    title = models.CharField(max_length=70, blank=False, default='')
+    description = models.CharField(max_length=200, blank=False, default='')
+    completed = models.BooleanField(default=False)
+    #Endeavor models which use cards:
+    team = models.OneToOneField(Team, on_delete=models.CASCADE, blank=True, null=True)
+    work = models.OneToOneField(Work,  on_delete=models.CASCADE, blank=True, null=True)
+    wayofwo = models.OneToOneField(WayOfWork,  on_delete=models.CASCADE, blank=True, null=True)
+    #Customer models which use cards:
+    opportunity = models.OneToOneField(Opportunity,  on_delete=models.CASCADE, blank=True, null=True)
+    stakeholders = models.OneToOneField(Stakeholders, on_delete=models.CASCADE, blank=True, null=True)
+    #Solution models which use cards:
+    requirements = models.OneToOneField(Requirements,  on_delete=models.CASCADE, blank=True, null=True)
+    softwaresys = models.OneToOneField(SoftwareSystems,  on_delete=models.CASCADE, blank=True, null=True)
+
 
 #user
 
