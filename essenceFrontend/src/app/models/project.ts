@@ -1,6 +1,6 @@
 export interface Project {
   id: string;
   title: string;
-  decription: string;
+  description: string;
 
 }

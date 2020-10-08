@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Project } from '../models/project';
 
 @Injectable({
   providedIn: 'root'
@@ -6,4 +7,8 @@ import { Injectable } from '@angular/core';
 export class ProjectService {
 
   constructor() { }
+
+  public addProject(project: Project) {
+    console.log(project);
+  }
 }
