@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { AddProjectDialogComponent } from '../add-project-dialog/add-project-dialog.component';
+import { AddProjectDialogComponent } from '../../dialogs/add-project-dialog/add-project-dialog.component';
 import { ProjectService } from '../../services/project.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-main',
@@ -12,7 +13,8 @@ export class MainComponent implements OnInit {
 
 
   constructor(private _dialog: MatDialog,
-    private _projectService: ProjectService
+              private _projectService: ProjectService,
+              private _router: Router
   ) { }
 
   ngOnInit() {
@@ -21,7 +23,12 @@ export class MainComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     const dialogRef = this._dialog.open(AddProjectDialogComponent);
     dialogRef.afterClosed().subscribe(result => {
-      this._projectService.addProject(result);
+      this._projectService.addProject(result).subscribe(
+        resulti => {
+          console.log(resulti);
+         // this._router.navigateByUrl('/project');
+        }
+      );
     });
     /*.pipe(
       withLatestFrom(this._seasonManager.getSelectedSeason())

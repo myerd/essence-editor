@@ -1,1 +1,16 @@
-<p>requirements works!</p>
+<div *ngIf="cards !== undefined; else other_content">
+  <div>
+    <li *ngFor="let card of cards">
+      ------------------------
+      <p>{{ card.title}} </p>
+      <p>{{ card.description }}
+      ------------------------
+    </li>
+  </div>
+</div>
+<button mat-stroked-button (click)="add_card()">+Card</button>
+<ng-template #other_content>No cards for this requirements.
+
+</ng-template>
+
+

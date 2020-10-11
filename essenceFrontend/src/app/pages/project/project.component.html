@@ -1,0 +1,23 @@
+<div class="row">
+  <a routerLink="/"><button mat-flat-button color="primary">BACK</button></a>
+  <div class="customer">
+    <app-customer></app-customer>
+  </div>
+</div>
+<div class="row">
+  <div class="solution">
+   <div *ngIf="solution !== undefined; else other_content">
+     <a [routerLink]="['/solution/', solution.id ]" [state]=solution> {{ solution.description }} </a>
+   </div>
+
+    <ng-template #other_content>No Solution for this Project
+      <button mat-stroked-button (click)="add_solution()">+Solution</button>
+
+    </ng-template>"
+
+  </div>
+
+  <div class="endeavor">
+    <app-endeavor></app-endeavor>
+  </div>
+</div>

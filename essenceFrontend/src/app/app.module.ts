@@ -15,12 +15,17 @@ import { SoftwaresystemComponent } from './pages/softwaresystem/softwaresystem.c
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CardComponent } from './components/card/card.component';
-import { AddProjectDialogComponent } from './pages/add-project-dialog/add-project-dialog.component';
+import { AddProjectDialogComponent } from './dialogs/add-project-dialog/add-project-dialog.component';
 import { TeamComponent } from './pages/team/team.component';
 import { WorkComponent } from './pages/work/work.component';
 import { WayofworkComponent } from './pages/wayofwork/wayofwork.component';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
+import { ProjectComponent } from './pages/project/project.component';
+import { SidebarComponent } from './pages/sidebar/sidebar.component';
+import { AddSolutionDialogComponent } from './dialogs/add-solution-dialog/add-solution-dialog.component';
+import { AddEndeavorDialogComponent } from './dialogs/add-endeavor-dialog/add-endeavor-dialog.component';
+import { AddCustomerDialogComponent } from './dialogs/add-customer-dialog/add-customer-dialog.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +40,12 @@ import { MatDialogModule } from '@angular/material/dialog';
     AddProjectDialogComponent,
     TeamComponent,
     WorkComponent,
-    WayofworkComponent
+    WayofworkComponent,
+    ProjectComponent,
+    SidebarComponent,
+    AddSolutionDialogComponent,
+    AddEndeavorDialogComponent,
+    AddCustomerDialogComponent
   ],
   imports: [
     BrowserModule,

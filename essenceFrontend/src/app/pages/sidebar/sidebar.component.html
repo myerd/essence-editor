@@ -1,0 +1,4 @@
+<a routerLink="/login">Login</a>
+<li  *ngFor="let project of projects">
+  <a [routerLink]="['/project']" [state]=project> {{ project.title }} |  {{ project.description }} </a>
+</li>

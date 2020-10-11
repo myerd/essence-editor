@@ -1,6 +1,25 @@
-<a routerLink="/"><button mat-flat-button color="primary">BACK</button></a>
 <div class="solution">
   <h1>Solution</h1>
-  <button mat-flat-button color="primary">Requirements</button>
-  <button mat-flat-button color="primary">Software System</button>
+  {{ solution.description }} || {{ solution.id }} || {{ solution.project }}
+  <button mat-flat-button color="primary" (click)="showRequirements()">
+    Requirements
+  </button>
+  <button mat-flat-button color="primary" (click)="showSoftwaresystems()">
+    Software System
+  </button>
+
+  <div *ngIf="requirements && !softwaresystems">
+    <div *ngIf="requirements !== undefined; else no_requirements">
+        <a [routerLink]="['/requirements/', requir.id]">
+          <p>{{ requir.description }}</p></a>
+
+    </div>
+  </div>
+  <ng-template #no_requirements>No requirements added for this Solution
+  </ng-template>
+  <div *ngIf="softwaresystems && !requirements">
+    <app-softwaresystem>
+
+    </app-softwaresystem>
+  </div>
 </div>
