@@ -12,9 +12,10 @@ import { Router } from '@angular/router';
 export class MainComponent implements OnInit {
 
 
-  constructor(private _dialog: MatDialog,
-              private _projectService: ProjectService,
-              private _router: Router
+  constructor(
+    private _dialog: MatDialog,
+    private _projectService: ProjectService,
+    private _router: Router
   ) { }
 
   ngOnInit() {

@@ -9,17 +9,24 @@
   </button>
 
   <div *ngIf="requirements && !softwaresystems">
-    <div *ngIf="requirements !== undefined; else no_requirements">
+    <div *ngIf="requir !== undefined; else no_requirements">
         <a [routerLink]="['/requirements/', requir.id]">
           <p>{{ requir.description }}</p></a>
 
     </div>
   </div>
   <ng-template #no_requirements>No requirements added for this Solution
+    <button mat-stroked-button (click)="addRequirements()">+Requirements</button>
   </ng-template>
   <div *ngIf="softwaresystems && !requirements">
-    <app-softwaresystem>
+    <div *ngIf="softwarsys !== undefined; else no_softwaresys">
+      <a [routerLink]="['/softwaresystems/', softwarsys.id]">
+        <p>{{ softwarsys.description }}</p></a>
 
-    </app-softwaresystem>
+    </div>
   </div>
+  <ng-template #no_softwaresys>No softwaresystems added for this Solution
+    <button mat-stroked-button (click)="addSoftwaresystems()">+Softwaresystems</button>
+  </ng-template>
 </div>
+

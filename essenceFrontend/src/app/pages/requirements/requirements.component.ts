@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Solution } from '../../models/solution';
 import { RequirementsService } from '../../services/requirements.service';
-import { Requirements } from '../../models/requirements';
 import { Card } from '../../models/card';
 import { CardService } from '../../services/card.service';
 import { ActivatedRoute } from '@angular/router';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { AddCardDialogComponent } from '../../dialogs/add-card-dialog/add-card-dialog.component';
 
 @Component({
   selector: 'app-requirements',
@@ -18,9 +18,11 @@ export class RequirementsComponent implements OnInit {
   private _kortit: boolean = true;
   private _sub;
 
-  constructor(private _activatedRoute: ActivatedRoute,
-    private requirementsService: RequirementsService,
-    private cardService: CardService
+  constructor(
+    private _dialog: MatDialog,
+    private _activatedRoute: ActivatedRoute,
+    private _requirementsService: RequirementsService,
+    private _cardService: CardService
   ) { }
 
   ngOnInit(): void {
@@ -28,13 +30,23 @@ export class RequirementsComponent implements OnInit {
       console.log(params);
       this._reqId = params.get('id');
     });
-      this.cardService.getCards(this._reqId).subscribe(result => {
+    this._requirementsService.getCards(this._reqId).subscribe(result => {
         console.log(result);
         this.cards = result;
       });
   }
 
   public add_card(): void {
-    console.log('Card added');
+    const dialogConfig = new MatDialogConfig();
+    const dialogRef = this._dialog.open(AddCardDialogComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      result.requirements = this._reqId;
+      this._cardService.addCard(result).subscribe(
+        resulti => {
+          console.log(resulti);
+          // this._router.navigateByUrl('/project');
+        }
+      );
+    });
   }
 }

@@ -26,6 +26,16 @@ import { SidebarComponent } from './pages/sidebar/sidebar.component';
 import { AddSolutionDialogComponent } from './dialogs/add-solution-dialog/add-solution-dialog.component';
 import { AddEndeavorDialogComponent } from './dialogs/add-endeavor-dialog/add-endeavor-dialog.component';
 import { AddCustomerDialogComponent } from './dialogs/add-customer-dialog/add-customer-dialog.component';
+import { AddCardDialogComponent } from './dialogs/add-card-dialog/add-card-dialog.component';
+import { AddRequirementsDialogComponent } from './dialogs/add-requirements-dialog/add-requirements-dialog.component';
+import { AddSoftwaresystemsDialogComponent } from './dialogs/add-softwaresystems-dialog/add-softwaresystems-dialog.component';
+import { AddTeamDialogComponent } from './dialogs/add-team-dialog/add-team-dialog.component';
+import { AddWorkDialogComponent } from './dialogs/add-work-dialog/add-work-dialog.component';
+import { AddWayofworkDialogComponent } from './dialogs/add-wayofwork-dialog/add-wayofwork-dialog.component';
+import { AddOpportunityDialogComponent } from './dialogs/add-opportunity-dialog/add-opportunity-dialog.component';
+import { AddStakeholdersDialogComponent } from './dialogs/add-stakeholders-dialog/add-stakeholders-dialog.component';
+import { StakeholdersComponent } from './pages/stakeholders/stakeholders.component';
+import { OpportunityComponent } from './pages/opportunity/opportunity.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +55,17 @@ import { AddCustomerDialogComponent } from './dialogs/add-customer-dialog/add-cu
     SidebarComponent,
     AddSolutionDialogComponent,
     AddEndeavorDialogComponent,
-    AddCustomerDialogComponent
+    AddCustomerDialogComponent,
+    AddCardDialogComponent,
+    AddRequirementsDialogComponent,
+    AddSoftwaresystemsDialogComponent,
+    AddTeamDialogComponent,
+    AddWorkDialogComponent,
+    AddWayofworkDialogComponent,
+    AddOpportunityDialogComponent,
+    AddStakeholdersDialogComponent,
+    StakeholdersComponent,
+    OpportunityComponent
   ],
   imports: [
     BrowserModule,

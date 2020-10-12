@@ -22,8 +22,8 @@ urlpatterns = [
     url(r'^api/endeavor/(?P<pk>[0-9]+)/work$', views.work),
     url(r'^api/work/(?P<pk>[0-9]+)/card$', views.work_card_list),
     url(r'^api/endeavor/(?P<pk>[0-9]+)/team$', views.team_list),
-    url(r'^api/team/(?P<k>[0-9]+)/card$', views.team_card_list),
+    url(r'^api/team/(?P<pk>[0-9]+)/card$', views.team_card_list),
     url(r'^api/endeavor/(?P<pk>[0-9]+)/wayofwork$', views.wayofwork),
-    url(r'^api/wayofwork/(?P<k>[0-9]+)/card$', views.wayofwork_card_list)
+    url(r'^api/wayofwork/(?P<pk>[0-9]+)/card$', views.wayofwork_card_list)
 
 ]

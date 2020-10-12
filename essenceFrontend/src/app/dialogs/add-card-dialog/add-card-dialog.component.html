@@ -1,0 +1,27 @@
+<h3 mat-dialog-title>add Card</h3>
+
+<mat-dialog-content [formGroup]="form">
+  <mat-form-field>
+    <input matInput
+           placeholder="title"
+           formControlName="title"
+           value="title">
+  </mat-form-field>
+  <br>
+  <mat-form-field>
+    <input matInput
+           placeholder="Description"
+           formControlName="description"
+           value="description">
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button class="mat-raised-button"
+          (click)="close()">
+    Cancel
+  </button>
+  <button class="mat-raised-button mat-primary"
+          (click)="save()" [disabled]="form.invalid">
+    Save
+  </button>
+</mat-dialog-actions>

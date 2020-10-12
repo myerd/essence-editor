@@ -1,6 +1,43 @@
 <div class="endeavor">
   <h1>Endeavor</h1>
-  <button mat-flat-button >Work</button>
-  <button mat-flat-button color="primary">Team</button>
-  <button mat-flat-button color="primary">Way of Working</button>
+    {{ endeavor.description }} || {{ endeavor.id }} || {{ endeavor.project }}
+    <button mat-flat-button color="primary" (click)="showWork()">
+      Work
+    </button>
+    <button mat-flat-button color="primary" (click)="showTeam()">
+      Team
+    </button>
+    <button mat-flat-button color="primary" (click)="showWoW()">
+      Way of Work
+    </button>
+    <div *ngIf="team && !work && !wayofwork">
+      <div *ngIf="tea !== undefined; else no_team">
+        <a [routerLink]="['/team/', tea.id]">
+          <p>{{ tea.description }}</p></a>
+
+      </div>
+    </div>
+    <ng-template #no_team>No Team added for this Endeavor
+      <button mat-stroked-button (click)="addTeam()">+Team</button>
+    </ng-template>
+    <div *ngIf="work && !team && !wayofwork">
+      <div *ngIf="wor !== undefined; else no_work">
+        <a [routerLink]="['/work/', wor.id]">
+          <p>{{ wor.description }}</p></a>
+
+      </div>
+    </div>
+    <ng-template #no_work>No work added for this Endeavor
+      <button mat-stroked-button (click)="addWork()">+Work</button>
+    </ng-template>
+  <div *ngIf="wayofwork && !team && !work">
+    <div *ngIf="wow !== undefined; else no_wow">
+      <a [routerLink]="['/wayofwork/', wow.id]">
+        <p>{{ wow.description }}</p></a>
+
+    </div>
+  </div>
+  <ng-template #no_wow>No wayofwork added for this Endeavor
+    <button mat-stroked-button (click)="addWoW()">+WayofWork</button>
+  </ng-template>
 </div>

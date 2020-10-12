@@ -12,13 +12,10 @@ export class CardService {
 
   constructor(private _http: HttpClient) { }
 
-  // TODO: Need to think properway of handling all different types for cards. Maybe move this to their own services (?)
-  public getCards(id): Observable<Card[]> {
-    console.log('tultiin mestoille');
+  public addCard(card: Card): Observable<Card> {
     const  options = {headers: {'Content-Type': 'application/json'}};
-    return this._http.get<Card[]>(`api/requirements/${id}/card`, options);
+    return this._http.post<Card>(`api/card`, card, options);
   }
-
 // Below code will change / delete later
   getAll(): Observable<any> {
     return this._http.get(baseUrl);

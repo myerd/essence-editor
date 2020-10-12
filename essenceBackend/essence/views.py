@@ -136,7 +136,7 @@ def softwaresystems(request, pk):
         except:
             return JsonResponse({'message': 'No Requirements for this solution exists'},
                                 status=status.HTTP_400_BAD_REQUEST)
-        softwaresystems_serializer = SoftwareSystemsSerializer(requirements, many=True)
+        softwaresystems_serializer = SoftwareSystemsSerializer(softwaresystems, many=True)
         return JsonResponse(softwaresystems_serializer.data, safe=False)
 
     elif request.method == 'POST':
@@ -257,36 +257,17 @@ def endeavor_list(request, pk):
             return JsonResponse(endeavor_serializer.data, status=status.HTTP_201_CREATED)
 
 
-@api_view(['GET', 'PUT', 'DELETE'])
-def team_detail(request, pk):
-    try:
-        team = Team.objects.get(pk=pk)
-    except:
-        return JsonResponse({'message': 'The Team does no exist'}, status=status.HTTP_404_NOT_FOUND)
-    if request.method == 'GET':
-        team_serializer = TeamSerializer(team)
-        return JsonResponse(team_serializer.data)
-
-    elif request.method == 'PUT':
-        team_data = JSONParser().parse(request)
-        team_serializer = TeamSerializer(team, data=team_data)
-        if team_serializer.is_valid():
-            team_serializer.save()
-            return JsonResponse(team_serializer.data)
-        return JsonResponse(team_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    elif request.method == 'DELETE':
-        team.delete()
-        return JsonResponse({'message': 'Team was deleted succesfully!'}, status=status.HTTP_204_NO_CONTENT)
-
-
 #API views for TEAM objects:
 @api_view(['GET', 'POST'])
-def team_list(request):
+def team_list(request, pk):
     if request.method == 'GET':
-        teams = Team.objects.all()
-        teams_serializer = TeamSerializer(teams, many=True)
-        return JsonResponse(teams_serializer.data, safe=False)
+        try:
+            team = Team.objects.filter(endeavor=pk)
+        except:
+            return JsonResponse({'message': 'No Team for this Endeavor exists'},
+                                status=status.HTTP_400_BAD_REQUEST)
+        team_serializer = TeamSerializer(team, many=True)
+        return JsonResponse(team_serializer.data, safe=False)
 
     elif request.method == 'POST':
         team_data = JSONParser().parse(request)
@@ -297,9 +278,9 @@ def team_list(request):
 
 
 @api_view(['GET'])
-def team_card_list(request, k):
+def team_card_list(request, pk):
     try:
-        cards = Card.objects.filter(team=k)
+        cards = Card.objects.filter(team=pk)
     except:
         return JsonResponse({'message': 'The Team does not exist'}, status=status.HTTP_404_NOT_FOUND)
     if request.method == 'GET':
@@ -314,7 +295,7 @@ def work(request, pk):
         try:
             work = Work.objects.filter(endeavor=pk)
         except:
-            return JsonResponse({'message': 'No Requirements for this solution exists'},
+            return JsonResponse({'message': 'No Work for this Endeavor exists'},
                                 status=status.HTTP_400_BAD_REQUEST)
         work_serializer = WorkSerializer(work, many=True)
         return JsonResponse(work_serializer.data, safe=False)

@@ -1,23 +1,38 @@
 <div class="row">
   <a routerLink="/"><button mat-flat-button color="primary">BACK</button></a>
   <div class="customer">
-    <app-customer></app-customer>
+    <div *ngIf="customer !== undefined; else nocustomer_content">
+      <a [routerLink]="['/customer/', customer.id ]" [state]=customer> {{ customer.description }} </a>
+    </div>
+
+    <ng-template #nocustomer_content>No Customer for this Project
+      <button mat-stroked-button (click)="add_customer()">+Customer</button>
+
+    </ng-template>
   </div>
 </div>
 <div class="row">
   <div class="solution">
-   <div *ngIf="solution !== undefined; else other_content">
+   <div *ngIf="solution !== undefined; else nosolution_content">
      <a [routerLink]="['/solution/', solution.id ]" [state]=solution> {{ solution.description }} </a>
    </div>
 
-    <ng-template #other_content>No Solution for this Project
+    <ng-template #nosolution_content>No Solution for this Project
       <button mat-stroked-button (click)="add_solution()">+Solution</button>
 
-    </ng-template>"
+    </ng-template>
 
   </div>
 
   <div class="endeavor">
-    <app-endeavor></app-endeavor>
+    <div *ngIf="endeavor !== undefined; else noendeavor_content">
+      <a [routerLink]="['/endeavor/', solution.id ]" [state]=endeavor> {{ endeavor.description }} </a>
+    </div>
+
+    <ng-template #noendeavor_content>No Endeavor for this Project
+      <button mat-stroked-button (click)="add_endeavor()">+Endeavor</button>
+
+    </ng-template>
+
   </div>
 </div>

@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialogRef } from '@angular/material/dialog';
+import { Customer } from '../../models/customer';
 
 @Component({
   selector: 'app-add-customer-dialog',
@@ -6,10 +9,45 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./add-customer-dialog.component.scss']
 })
 export class AddCustomerDialogComponent implements OnInit {
+  public form: FormGroup;
+  public customer: Customer;
 
-  constructor() { }
+  public constructor(
+    private _fb: FormBuilder,
+    private _dialogRef: MatDialogRef<AddCustomerDialogComponent>
+  )
+  //@Inject(MAT_DIALOG_DATA) data: any) {
+  //this.originalRink = data.pageValue;
+  //}
+  {}
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
+    this.form = this._fb.group({
+      description: this._fb.control('', [
+        Validators.required,
+        this.noWhitespaceValidator,
+        Validators.minLength(1)
+      ])
+    });
   }
 
+  public save(): void {
+    const customerToAdd: Customer = this.form.value as Customer;
+    this._dialogRef.close(customerToAdd);
+  }
+
+  /*public delete(): void {
+    const forDeleting: boolean = true;
+    this._dialogRef.close([this.originalRink, forDeleting]);
+  }*/
+
+  public close(): void {
+    this._dialogRef.close();
+  }
+
+  public noWhitespaceValidator(control: FormControl): object {
+    const isWhitespace = (control.value || '').trim().length === 0;
+    const isValid = !isWhitespace;
+    return isValid ? null : { whitespace: true };
+  }
 }
