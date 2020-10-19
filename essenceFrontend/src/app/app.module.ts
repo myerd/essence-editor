@@ -36,6 +36,7 @@ import { AddOpportunityDialogComponent } from './dialogs/add-opportunity-dialog/
 import { AddStakeholdersDialogComponent } from './dialogs/add-stakeholders-dialog/add-stakeholders-dialog.component';
 import { StakeholdersComponent } from './pages/stakeholders/stakeholders.component';
 import { OpportunityComponent } from './pages/opportunity/opportunity.component';
+import { GridsterModule } from 'angular-gridster2';
 
 @NgModule({
   declarations: [
@@ -76,7 +77,8 @@ import { OpportunityComponent } from './pages/opportunity/opportunity.component'
     MatInputModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    GridsterModule
   ],
   providers: [],
   bootstrap: [AppComponent]

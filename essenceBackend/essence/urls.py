@@ -1,7 +1,6 @@
 from django.conf.urls import url
 from . import views
 
-
 urlpatterns = [
     url(r'^api/card$', views.card_list),
     url(r'^api/card/(?P<pk>[0-9]+)$', views.card_detail),

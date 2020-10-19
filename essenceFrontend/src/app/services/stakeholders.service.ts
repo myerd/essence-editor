@@ -8,7 +8,7 @@ import { Stakeholders } from '../models/stakeholders';
   providedIn: 'root'
 })
 export class StakeholdersService {
-
+// TODO: DELETE AND UPDATE on all services + components
   constructor(private _http: HttpClient) { }
 
   public getStakeholders(id): Observable<Stakeholders[]> {

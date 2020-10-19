@@ -5,6 +5,8 @@ import { CardService } from '../../services/card.service';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { AddCardDialogComponent } from '../../dialogs/add-card-dialog/add-card-dialog.component';
+import { GridsterConfig, GridsterItem } from 'angular-gridster2';
+
 
 @Component({
   selector: 'app-requirements',
@@ -13,10 +15,20 @@ import { AddCardDialogComponent } from '../../dialogs/add-card-dialog/add-card-d
 })
 export class RequirementsComponent implements OnInit {
 
+  public gridoptions: GridsterConfig;
+  public dashboard: Array<GridsterItem>;
   public cards: Card[] = [];
   private _reqId: string;
   private _kortit: boolean = true;
   private _sub;
+
+  public itemChange(item, itemComponent) {
+    console.info('itemChanged', item, itemComponent);
+  }
+
+  public itemResize(item, itemComponent) {
+    console.info('itemResized', item, itemComponent);
+  }
 
   constructor(
     private _dialog: MatDialog,
@@ -34,6 +46,16 @@ export class RequirementsComponent implements OnInit {
         console.log(result);
         this.cards = result;
       });
+
+    this.gridoptions = {
+      itemChangeCallback: this.itemChange,
+      itemResizeCallback: this.itemResize,
+    };
+
+    this.dashboard = [
+      {cols: 2, rows: 1, y: 0, x: 0},
+      {cols: 2, rows: 2, y: 0, x: 2}
+    ];
   }
 
   public add_card(): void {
@@ -48,5 +70,17 @@ export class RequirementsComponent implements OnInit {
         }
       );
     });
+  }
+
+  public changedOptions() {
+    this.gridoptions.api.optionsChanged();
+  }
+
+  public removeItem(item) {
+    this.dashboard.splice(this.dashboard.indexOf(item), 1);
+  }
+
+  public addItem() {
+    this.dashboard.push();
   }
 }
