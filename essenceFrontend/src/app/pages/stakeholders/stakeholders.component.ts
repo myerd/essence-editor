@@ -1,22 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Card } from '../../models/card';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { CardService } from '../../services/card.service';
 import { AddCardDialogComponent } from '../../dialogs/add-card-dialog/add-card-dialog.component';
 import { StakeholdersService } from '../../services/stakeholders.service';
+import { Stakeholders } from '../../models/stakeholders';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-stakeholders',
   templateUrl: './stakeholders.component.html',
   styleUrls: ['./stakeholders.component.scss']
 })
-export class StakeholdersComponent implements OnInit {
+export class StakeholdersComponent implements OnInit, OnChanges {
 
+  @Input() stake: Stakeholders;
   public cards: Card[] = [];
-  private _stakeId: string;
-  private _kortit: boolean = true;
-  private _sub;
 
   constructor(
     private _dialog: MatDialog,
@@ -25,26 +25,21 @@ export class StakeholdersComponent implements OnInit {
     private _cardService: CardService
   ) { }
 
-  ngOnInit(): void {
-    this._sub = this._activatedRoute.paramMap.subscribe(params => {
-      console.log(params);
-      this._stakeId = params.get('id');
-    });
-    this._stakeholderService.getCards(this._stakeId).subscribe(result => {
-      console.log(result);
+  ngOnInit(): void {}
+
+  public ngOnChanges(changes: SimpleChanges) {
+    this._stakeholderService.getCards(changes.stake.currentValue.id).pipe(take(1)).subscribe(result => {
       this.cards = result;
     });
   }
-
   public add_card(): void {
     const dialogConfig = new MatDialogConfig();
     const dialogRef = this._dialog.open(AddCardDialogComponent);
     dialogRef.afterClosed().subscribe(result => {
-      result.stakeholders = this._stakeId;
+      result.stakeholders = this.stake.id;
       this._cardService.addCard(result).subscribe(
         resulti => {
           console.log(resulti);
-          // this._router.navigateByUrl('/project');
         }
       );
     });

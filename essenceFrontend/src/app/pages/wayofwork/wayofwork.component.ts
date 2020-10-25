@@ -1,23 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Card } from '../../models/card';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
-import { StakeholdersService } from '../../services/stakeholders.service';
 import { CardService } from '../../services/card.service';
 import { AddCardDialogComponent } from '../../dialogs/add-card-dialog/add-card-dialog.component';
 import { WayofworkService } from '../../services/wayofwork.service';
+import { Wayofwork } from '../../models/wayofwork';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-wayofwork',
   templateUrl: './wayofwork.component.html',
   styleUrls: ['./wayofwork.component.scss']
 })
-export class WayofworkComponent implements OnInit {
+export class WayofworkComponent implements OnInit, OnChanges {
 
+  @Input() wow: Wayofwork;
   public cards: Card[] = [];
-  private _wowId: string;
-  private _kortit: boolean = true;
-  private _sub;
 
   constructor(
     private _dialog: MatDialog,
@@ -27,12 +26,10 @@ export class WayofworkComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this._sub = this._activatedRoute.paramMap.subscribe(params => {
-      console.log(params);
-      this._wowId = params.get('id');
-    });
-    this._wayofworkService.getCards(this._wowId).subscribe(result => {
-      console.log(result);
+  }
+
+  public ngOnChanges(changes: SimpleChanges): void {
+    this._wayofworkService.getCards(changes.wow.currentValue.id).pipe(take(1)).subscribe(result => {
       this.cards = result;
     });
   }
@@ -41,11 +38,10 @@ export class WayofworkComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     const dialogRef = this._dialog.open(AddCardDialogComponent);
     dialogRef.afterClosed().subscribe(result => {
-      result.wayofwo = this._wowId;
+      result.wayofwo = this.wow.id;
       this._cardService.addCard(result).subscribe(
         resulti => {
           console.log(resulti);
-          // this._router.navigateByUrl('/project');
         }
       );
     });

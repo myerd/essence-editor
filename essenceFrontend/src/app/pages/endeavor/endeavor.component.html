@@ -1,20 +1,23 @@
 <div class="endeavor">
   <h1>Endeavor</h1>
-    {{ endeavor.description }} || {{ endeavor.id }} || {{ endeavor.project }}
-    <button mat-flat-button color="primary" (click)="showWork()">
+    {{ endeavor.description }} <br>
+    <button mat-stroked-button (click)="showWork()">
       Work
     </button>
-    <button mat-flat-button color="primary" (click)="showTeam()">
+    <button mat-stroked-button (click)="showTeam()">
       Team
     </button>
-    <button mat-flat-button color="primary" (click)="showWoW()">
+    <button mat-stroked-button (click)="showWoW()">
       Way of Work
+    </button>
+    <button class="hide" mat-stroked-button (click)="hideCards()">
+      Hide Cards
     </button>
     <div *ngIf="team && !work && !wayofwork">
       <div *ngIf="tea !== undefined; else no_team">
-        <a [routerLink]="['/team/', tea.id]">
-          <p>{{ tea.description }}</p></a>
-
+          <p>{{ tea.description }}</p><br>
+          <app-team [team]="tea">
+          </app-team>
       </div>
     </div>
     <ng-template #no_team>No Team added for this Endeavor
@@ -22,9 +25,9 @@
     </ng-template>
     <div *ngIf="work && !team && !wayofwork">
       <div *ngIf="wor !== undefined; else no_work">
-        <a [routerLink]="['/work/', wor.id]">
-          <p>{{ wor.description }}</p></a>
-
+          <p>{{ wor.description }}</p><br>
+        <app-work [work]="wor">
+        </app-work>
       </div>
     </div>
     <ng-template #no_work>No work added for this Endeavor
@@ -32,9 +35,9 @@
     </ng-template>
   <div *ngIf="wayofwork && !team && !work">
     <div *ngIf="wow !== undefined; else no_wow">
-      <a [routerLink]="['/wayofwork/', wow.id]">
-        <p>{{ wow.description }}</p></a>
-
+        <p>{{ wow.description }}</p><br>
+      <app-wayofwork [wow]="wow">
+      </app-wayofwork>
     </div>
   </div>
   <ng-template #no_wow>No wayofwork added for this Endeavor

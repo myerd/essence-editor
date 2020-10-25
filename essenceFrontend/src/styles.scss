@@ -1,12 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
 
 
-html, body { height: 100%; }
-//body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background: #6b6b6e;}
+html, body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  height: 100%;
+  color: #a295a8;
+  background-color: #332f35;
+}
 
 // Div
 .row:after {
-  background-color: #6b6b6e;
+  background-color: #332f35;
   content: "";
   display: table;
   clear: both;
@@ -18,57 +23,76 @@ html, body { height: 100%; }
     'left middle middle middle middle right'
     'footer footer footer footer footer footer';
   grid-gap: 1px;
-  background-color: #6b6b6e;
+  background-color: #332f35;
   padding: 1px;
   grid-template-rows: 10% auto 150px;
 }
 .header {
   grid-area: header;
   text-align: center;
-  background-color: #6b6b6e;
+  background-color: #332f35;
 }
 .middle {
   grid-area: middle;
-  background-color: #6b6b6e;
-  //width: 70%;
-  //float: top;
+  background-color: #332f35;
 }
 .left {
-  background-color: #6b6b6e;
+  background-color: #332f35;
   grid-area: left;
-  //width: 15%;
-  //float: left;
-  //padding-bottom: 1px;
 }
 
 .right {
   grid-area: right;
-  //float: left;
-  background-color: #6b6b6e;
-  //width: 15%;
-  //padding-bottom: 1px;
+  background-color: #332f35;
 }
 .footer {
   grid-area: footer;
   text-align: center;
-  background-color: #6b6b6e;
+  background-color: #332f35;
 }
 // Content
 .customer {
   height: 30%;
   background-color: #aaff07;
+  color: #27252b;
 }
 .endeavor {
   height: 30%;
   background-color: #dc9fff;
+  color: #27252b;
 }
 .solution {
   height: 30%;
   background-color: #fcff93;
+  color: #27252b;
 }
 .a {
-  color: #ff9e5b
+  color: #554342
 }
 .a:visited {
-  color: #ff9e5b
+  color: #554342
+}
+.content {
+  padding: 10px;
+}
+.hide {
+  background-color: #6b6b6e;
+}
+
+.p {
+  font-size: 15px;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  text-underline: #332f35;
+}
+
+.h3 {
+  color: #332f35;
+  padding: 3px;
+  margin-top: auto;
+}
+
+.h1 {
+  font-size: 10px;
+  color: #332f35;
+  padding: 0;
 }

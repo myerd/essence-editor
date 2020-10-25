@@ -1,17 +1,20 @@
 <div class="customer">
   <h1>Customer</h1>
-  {{ customer.description }} || {{ customer.id }} || {{ customer.project }}
-  <button mat-flat-button color="primary" (click)="showOpportunity()">
+    {{ customer.description }} <br>
+  <button mat-stroked-button (click)="showOpportunity()">
     Opportunity
   </button>
-  <button mat-flat-button color="primary" (click)="showStakeholders()">
+  <button mat-stroked-button (click)="showStakeholders()">
     Stakeholders
+  </button>
+  <button class="hide" mat-stroked-button (click)="hideCards()">
+    Hide Cards
   </button>
     <div *ngIf="opportunity && !stakeholders">
     <div *ngIf="oppor !== undefined; else no_opportunity">
-      <a [routerLink]="['/opportunity/', oppor.id]">
-        <p>{{ oppor.description }}</p></a>
-
+        <p>{{ oppor.description }}</p><br>
+      <app-opportunity [oppo]="oppor">
+      </app-opportunity>
     </div>
   </div>
   <ng-template #no_opportunity>No Opportunity added for this Customer
@@ -19,9 +22,9 @@
   </ng-template>
   <div *ngIf="stakeholders && !opportunity">
     <div *ngIf="stakehol !== undefined; else no_stakeholders">
-      <a [routerLink]="['/stakeholders/', stakehol.id]">
-        <p>{{ stakehol.description }}</p></a>
-
+        <p>{{ stakehol.description }}</p><br>
+      <app-stakeholders [stake]="stakehol">
+      </app-stakeholders>
     </div>
   </div>
   <ng-template #no_stakeholders>No stakeholders added for this Customer

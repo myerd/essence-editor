@@ -1,5 +1,7 @@
 <a routerLink="/login">Login</a>
 <h1><a routerLink="/">MAIN</a></h1>
 <li  *ngFor="let project of projects">
-  <a [routerLink]="['/project']" [state]=project> {{ project.title }} |  {{ project.description }} </a>
+  <a [routerLink]="['/project/', project.id]"> {{ project.title }} </a>
+  <br> || {{ project.description}}
 </li>
+<button mat-mini-fab (click)="add_project()">+</button>

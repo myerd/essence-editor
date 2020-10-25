@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { AddOpportunityDialogComponent } from '../../dialogs/add-opportunity-dialog/add-opportunity-dialog.component';
 import { OpportunityService } from '../../services/opportunity.service';
@@ -8,6 +8,7 @@ import { Stakeholders } from '../../models/stakeholders';
 import { Opportunity } from '../../models/opportunity';
 import { Customer } from '../../models/customer';
 import { AddStakeholdersDialogComponent } from '../../dialogs/add-stakeholders-dialog/add-stakeholders-dialog.component';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-customer',
@@ -16,11 +17,12 @@ import { AddStakeholdersDialogComponent } from '../../dialogs/add-stakeholders-d
 })
 export class CustomerComponent implements OnInit {
 
+  @Input() customer: Customer;
   public opportunity;
   public stakeholders;
   public stakehol: Stakeholders;
   public oppor: Opportunity;
-  public customer: Customer;
+
 
   constructor(
     private _opportunityService: OpportunityService,
@@ -30,14 +32,12 @@ export class CustomerComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log(history.state);
-    this.customer = history.state;
   }
 
   public showOpportunity() {
     this.opportunity = true;
     this.stakeholders = false;
-    this._opportunityService.getOpportunity(this.customer.id).subscribe(result => {
+    this._opportunityService.getOpportunity(this.customer.id).pipe(take(1)).subscribe(result => {
       console.log(result[0])
       if (result) {
         this.oppor = result[0];
@@ -57,7 +57,6 @@ export class CustomerComponent implements OnInit {
       this._opportunityService.addOpportunity(result, this.customer.id).subscribe(
         resulti => {
           console.log(resulti);
-          // this._router.navigateByUrl('/project');
         }
       );
     });
@@ -66,7 +65,7 @@ export class CustomerComponent implements OnInit {
   public showStakeholders() {
     this.opportunity = false;
     this.stakeholders = true;
-    this._stakeholderService.getStakeholders(this.customer.id).subscribe(result => {
+    this._stakeholderService.getStakeholders(this.customer.id).pipe(take(1)).subscribe(result => {
       console.log(result[0])
       if (result) {
         this.stakehol = result[0];
@@ -86,9 +85,13 @@ export class CustomerComponent implements OnInit {
       this._stakeholderService.addStakeholders(result, this.customer.id).subscribe(
         resulti => {
           console.log(resulti);
-          // this._router.navigateByUrl('/project');
         }
       );
     });
+  }
+
+  public hideCards() {
+    this.opportunity = false;
+    this.stakeholders = false;
   }
 }

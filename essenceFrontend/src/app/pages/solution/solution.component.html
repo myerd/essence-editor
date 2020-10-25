@@ -1,18 +1,20 @@
 <div class="solution">
   <h1>Solution</h1>
-  {{ solution.description }} || {{ solution.id }} || {{ solution.project }}
-  <button mat-flat-button color="primary" (click)="showRequirements()">
+  {{ solution.description }} <br>
+  <button mat-stroked-button (click)="showRequirements()">
     Requirements
   </button>
-  <button mat-flat-button color="primary" (click)="showSoftwaresystems()">
+  <button mat-stroked-button (click)="showSoftwaresystems()">
     Software System
   </button>
-
+  <button class="hide" mat-stroked-button (click)="hideCards()">
+    Hide Cards
+  </button>
   <div *ngIf="requirements && !softwaresystems">
     <div *ngIf="requir !== undefined; else no_requirements">
-        <a [routerLink]="['/requirements/', requir.id]">
-          <p>{{ requir.description }}</p></a>
-
+          <p>{{ requir.description }}</p>
+      <app-requirements [req]="requir">
+      </app-requirements>
     </div>
   </div>
   <ng-template #no_requirements>No requirements added for this Solution
@@ -20,9 +22,9 @@
   </ng-template>
   <div *ngIf="softwaresystems && !requirements">
     <div *ngIf="softwarsys !== undefined; else no_softwaresys">
-      <a [routerLink]="['/softwaresystems/', softwarsys.id]">
-        <p>{{ softwarsys.description }}</p></a>
-
+      <p>{{ softwarsys.description }}</p>
+     <app-softwaresystem [sys]="softwarsys">
+     </app-softwaresystem>
     </div>
   </div>
   <ng-template #no_softwaresys>No softwaresystems added for this Solution

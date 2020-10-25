@@ -1,4 +1,26 @@
-<li *ngFor="let card of cards; let i = index"
-    [class.active]="i == currentIndex">
-  {{ card.title }}
-</li>
+<div class="card" *ngIf="card">
+  <mat-card class="{{ color }}">
+    <mat-card-header>
+      <mat-card-title>{{ card.title }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p>
+        {{ card.description }}
+      </p>
+      <div *ngFor="let data of cardsdata">
+        <input type="checkbox" [checked]="data.completed" [disabled]="!isEditing"
+               (click)="setCheckbox($event,data)">
+        {{ data.task }}
+      </div>
+      <div *ngIf="isEditing === true; else not_editing">
+        <button mat-stroked-button (click)="save_card_task()">Save</button>
+        <button mat-stroked-button (click)="deleteCard(card.id)">Delete Card</button>
+      </div>
+      <ng-template #not_editing>
+        <button mat-stroked-button (click)="add_card_task(card.id)">+Task</button>
+        <button mat-stroked-button (click)="edit()">Edit</button>
+      </ng-template>
+    </mat-card-content>
+  </mat-card>
+</div>
+

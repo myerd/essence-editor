@@ -1,0 +1,23 @@
+<h3 mat-dialog-title>add Card</h3>
+
+<mat-dialog-content [formGroup]="form">
+
+  <mat-checkbox formControlName="completed"></mat-checkbox>
+  <br>
+  <mat-form-field>
+    <input matInput
+           placeholder="Task"
+           formControlName="task"
+           value="task">
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button class="mat-raised-button"
+          (click)="close()">
+    Cancel
+  </button>
+  <button class="mat-raised-button mat-primary"
+          (click)="save()" [disabled]="form.invalid">
+    Save
+  </button>
+</mat-dialog-actions>

@@ -4,6 +4,8 @@ from . import views
 urlpatterns = [
     url(r'^api/card$', views.card_list),
     url(r'^api/card/(?P<pk>[0-9]+)$', views.card_detail),
+    url(r'^api/card/(?P<pk>[0-9]+)/data$', views.card_data),
+    url(r'^api/card/data/(?P<pk2>[0-9]+)$', views.card_data_update),
     url(r'^api/card/completed$', views.card_list_completed),
     # url(r'^api/endeavor/team/(?P<pk>[0-9]+)$', views.team_detail),
     url(r'^api/project$', views.project_list),

@@ -1,22 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Card } from '../../models/card';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { CardService } from '../../services/card.service';
 import { AddCardDialogComponent } from '../../dialogs/add-card-dialog/add-card-dialog.component';
 import { OpportunityService } from '../../services/opportunity.service';
+import { Opportunity } from '../../models/opportunity';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-opportunity',
   templateUrl: './opportunity.component.html',
   styleUrls: ['./opportunity.component.scss']
 })
-export class OpportunityComponent implements OnInit {
+export class OpportunityComponent implements OnInit, OnChanges {
 
+  @Input() oppo: Opportunity;
   public cards: Card[] = [];
-  private _opporId: string;
-  private _kortit: boolean = true;
-  private _sub;
 
   constructor(
     private _dialog: MatDialog,
@@ -25,12 +25,10 @@ export class OpportunityComponent implements OnInit {
     private _cardService: CardService
   ) { }
 
-  ngOnInit(): void {
-    this._sub = this._activatedRoute.paramMap.subscribe(params => {
-      console.log(params);
-      this._opporId = params.get('id');
-    });
-    this._opportunityService.getCards(this._opporId).subscribe(result => {
+  ngOnInit(): void {}
+
+  public ngOnChanges(changes: SimpleChanges) {
+    this._opportunityService.getCards(changes.oppo.currentValue.id).pipe(take(1)).subscribe(result => {
       console.log(result);
       this.cards = result;
     });
@@ -40,11 +38,10 @@ export class OpportunityComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     const dialogRef = this._dialog.open(AddCardDialogComponent);
     dialogRef.afterClosed().subscribe(result => {
-      result.opportunity = this._opporId;
+      result.opportunity = this.oppo.id;
       this._cardService.addCard(result).subscribe(
         resulti => {
           console.log(resulti);
-          // this._router.navigateByUrl('/project');
         }
       );
     });

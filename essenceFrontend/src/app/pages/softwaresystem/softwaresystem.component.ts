@@ -1,22 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Card } from '../../models/card';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
-import { RequirementsService } from '../../services/requirements.service';
 import { CardService } from '../../services/card.service';
 import { AddCardDialogComponent } from '../../dialogs/add-card-dialog/add-card-dialog.component';
 import { SoftwaresystemsService } from '../../services/softwaresystems.service';
+import { take } from 'rxjs/operators';
+import { Softwaresystems } from '../../models/softwaresystems';
 
 @Component({
   selector: 'app-softwaresystem',
   templateUrl: './softwaresystem.component.html',
   styleUrls: ['./softwaresystem.component.scss']
 })
-export class SoftwaresystemComponent implements OnInit {
+export class SoftwaresystemComponent implements OnInit, OnChanges {
+
+  @Input() sys: Softwaresystems;
   public cards: Card[] = [];
-  private _softwaresysId: string;
-  private _kortit: boolean = true;
-  private _sub;
 
   constructor(
     private _dialog: MatDialog,
@@ -26,21 +26,19 @@ export class SoftwaresystemComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this._sub = this._activatedRoute.paramMap.subscribe(params => {
-      console.log(params);
-      this._softwaresysId = params.get('id');
-    });
-    this._softwaresystemsService.getCards(this._softwaresysId).subscribe(result => {
+  }
+
+  public ngOnChanges(changes: SimpleChanges) {
+    this._softwaresystemsService.getCards(changes.sys.currentValue.id).pipe(take(1)).subscribe(result => {
       console.log(result);
       this.cards = result;
     });
   }
-
   public add_card(): void {
     const dialogConfig = new MatDialogConfig();
     const dialogRef = this._dialog.open(AddCardDialogComponent);
     dialogRef.afterClosed().subscribe(result => {
-      result.softwaresys = this._softwaresysId;
+      result.softwaresys = this.sys.id;
       this._cardService.addCard(result).subscribe(
         resulti => {
           console.log(resulti);

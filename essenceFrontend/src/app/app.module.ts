@@ -36,7 +36,11 @@ import { AddOpportunityDialogComponent } from './dialogs/add-opportunity-dialog/
 import { AddStakeholdersDialogComponent } from './dialogs/add-stakeholders-dialog/add-stakeholders-dialog.component';
 import { StakeholdersComponent } from './pages/stakeholders/stakeholders.component';
 import { OpportunityComponent } from './pages/opportunity/opportunity.component';
-import { GridsterModule } from 'angular-gridster2';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { AddCarddataDialogComponent } from './dialogs/add-carddata-dialog/add-carddata-dialog.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   declarations: [
@@ -66,7 +70,8 @@ import { GridsterModule } from 'angular-gridster2';
     AddOpportunityDialogComponent,
     AddStakeholdersDialogComponent,
     StakeholdersComponent,
-    OpportunityComponent
+    OpportunityComponent,
+    AddCarddataDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -78,7 +83,10 @@ import { GridsterModule } from 'angular-gridster2';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    GridsterModule
+    MatExpansionModule,
+    MatCheckboxModule,
+    FlexLayoutModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]

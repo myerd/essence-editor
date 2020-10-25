@@ -1,23 +1,14 @@
 <div *ngIf="cards !== undefined; else other_content">
-  <gridster [options]="gridoptions">
-  <gridster-item [item]="item" *ngFor="let item of dashboard">
-    <div class="gridster-item-content" *ngFor="let card of cards">
-      ------------------------<br>
-      <p>{{ card.title}} </p>
-      <p>{{ card.description }}</p>
-      ------------------------
-    </div>
-    <div class="item-buttons">
-      <button md-icon-button md-raised-button class="drag-handler">
-       open_with
-      </button>
-    </div>
-  </gridster-item>
-  </gridster>
+  <div class="content" fxLayout="row wrap" fxLayoutAlign="start start" fxLayoutGap="16px grid">
+   <div fxFlex="20%" fxFlex.xs="100%" fxFlex.sm="33%" *ngFor="let card of cards" fxFlexFill>
+    <app-card [card]="card" [color]="'solution-card'">
+    </app-card>
+   </div>
+  </div>
 </div>
 <button mat-stroked-button (click)="add_card()">+Card</button>
-<ng-template #other_content>No cards for this requirements.
-
+<ng-template #other_content>
+  No cards for this requirements.
 </ng-template>
 
 

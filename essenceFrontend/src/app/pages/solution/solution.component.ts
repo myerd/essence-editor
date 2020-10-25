@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Solution } from '../../models/solution';
 import { SolutionService } from '../../services/solution.service';
 import { ActivatedRoute } from '@angular/router';
@@ -10,16 +10,16 @@ import { AddRequirementsDialogComponent } from '../../dialogs/add-requirements-d
 import { Softwaresystems } from '../../models/softwaresystems';
 import { SoftwaresystemsService } from '../../services/softwaresystems.service';
 import { AddSoftwaresystemsDialogComponent } from '../../dialogs/add-softwaresystems-dialog/add-softwaresystems-dialog.component';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-solution',
   templateUrl: './solution.component.html',
   styleUrls: ['./solution.component.scss']
 })
-export class SolutionComponent implements OnInit {
+export class SolutionComponent implements OnInit, OnChanges {
 
-  public solution: Solution;
-  public solutionId: string;
+  @Input() solution: Solution;
   public requir: Requirements;
   public softwarsys: Softwaresystems;
   public requirements = false;
@@ -34,18 +34,16 @@ export class SolutionComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this._route.params.subscribe((params) => {
-      console.log(params['id']);
-      this.solutionId = params['id'];
-    });
-    console.log(history.state);
-    this.solution = history.state;
+
+  }
+
+  public ngOnChanges(changes: SimpleChanges): void {
   }
 
   public showRequirements() {
     this.requirements = true;
     this.softwaresystems = false;
-    this._requirementsService.getRequirements(this.solution.id).subscribe(result => {
+    this._requirementsService.getRequirements(this.solution.id).pipe(take(1)).subscribe(result => {
       console.log(result[0])
       if (result) {
         this.requir = result[0];
@@ -65,7 +63,6 @@ export class SolutionComponent implements OnInit {
       this._requirementsService.addRequirements(result, this.solution.id).subscribe(
         resulti => {
           console.log(resulti);
-          // this._router.navigateByUrl('/project');
         }
       );
     });
@@ -74,7 +71,7 @@ export class SolutionComponent implements OnInit {
   public showSoftwaresystems() {
     this.requirements = false;
     this.softwaresystems = true;
-    this._softwaresystemsService.getSoftwaresystems(this.solution.id).subscribe(result => {
+    this._softwaresystemsService.getSoftwaresystems(this.solution.id).pipe(take(1)).subscribe(result => {
       console.log(result[0])
       if (result) {
         this.softwarsys = result[0];
@@ -94,9 +91,13 @@ export class SolutionComponent implements OnInit {
       this._softwaresystemsService.addSoftwaresystems(result, this.solution.id).subscribe(
         resulti => {
           console.log(resulti);
-          // this._router.navigateByUrl('/project');
         }
       );
     });
+  }
+
+  public hideCards() {
+    this.requirements = false;
+    this.softwaresystems = false;
   }
 }

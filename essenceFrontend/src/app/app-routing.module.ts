@@ -22,7 +22,7 @@ const routes: Routes = [
   { path: 'customer/:id', component: CustomerComponent},
   { path: 'endeavor/:id', component: EndeavorComponent},
   { path: 'card', component: CardComponent},
-  { path: 'project', component: ProjectComponent},
+  { path: 'project/:id', component: ProjectComponent},
   { path: 'requirements/:id', component: RequirementsComponent},
   { path: 'softwaresystems/:id', component: SoftwaresystemComponent},
   { path: 'opportunity/:id', component: OpportunityComponent},

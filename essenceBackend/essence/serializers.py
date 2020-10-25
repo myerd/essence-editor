@@ -9,6 +9,13 @@ class CardSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class CardDataSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = CardAttribute
+        fields = '__all__'
+
+
 class ProjectSerializer(serializers.ModelSerializer):
 
     class Meta:

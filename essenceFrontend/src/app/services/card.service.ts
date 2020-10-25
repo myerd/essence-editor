@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Card } from '../models/card';
-
-const baseUrl = 'http://localhost:8080/api/card';
+import { Cardattribute } from '../models/cardattribute';
 
 @Injectable({
   providedIn: 'root'
@@ -16,32 +15,26 @@ export class CardService {
     const  options = {headers: {'Content-Type': 'application/json'}};
     return this._http.post<Card>(`api/card`, card, options);
   }
-// Below code will change / delete later
-  getAll(): Observable<any> {
-    return this._http.get(baseUrl);
+
+  public getCardData(card: string): Observable<Cardattribute[]> {
+    const  options = {headers: {'Content-Type': 'application/json'}};
+    return this._http.get<Cardattribute[]>(`api/card/${card}/data`,  options);
   }
 
-  get(id): Observable<any> {
-    return this._http.get(`${baseUrl}/${id}`);
+  public addCardData(card: Card, id: string): Observable<Cardattribute> {
+    const  options = {headers: {'Content-Type': 'application/json'}};
+    return this._http.post<Cardattribute>(`api/card/${id}/data`, card, options);
   }
 
-  create(data): Observable<any> {
-    return this._http.post(baseUrl, data);
+  public updateCardData(data: Cardattribute, id: string): Observable<Cardattribute> {
+    const  options = {headers: {'Content-Type': 'application/json'}};
+    return this._http.put<Cardattribute>(`api/card/data/${id}`, data,  options);
   }
 
-  update(id, data): Observable<any> {
-    return this._http.put(`${baseUrl}/${id}`, data);
+  public deleteCard(id) {
+    const  options = {headers: {'Content-Type': 'application/json'}};
+    return this._http.delete(`api/card/${id}`,  options);
+
   }
 
-  delete(id): Observable<any> {
-    return this._http.delete(`${baseUrl}/${id}`);
-  }
-
-  deleteAll(): Observable<any> {
-    return this._http.delete(baseUrl);
-  }
-
-  findByTitle(title): Observable<any> {
-    return this._http.get(`${baseUrl}?title=${title}`);
-  }
 }

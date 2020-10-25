@@ -1,8 +1,8 @@
 <div class="row">
-  <a routerLink="/"><button mat-flat-button color="primary">BACK</button></a>
   <div class="customer">
     <div *ngIf="customer !== undefined; else nocustomer_content">
-      <a [routerLink]="['/customer/', customer.id ]" [state]=customer> {{ customer.description }} </a>
+     <app-customer [customer]="customer">
+     </app-customer>
     </div>
 
     <ng-template #nocustomer_content>No Customer for this Project
@@ -14,7 +14,8 @@
 <div class="row">
   <div class="solution">
    <div *ngIf="solution !== undefined; else nosolution_content">
-     <a [routerLink]="['/solution/', solution.id ]" [state]=solution> {{ solution.description }} </a>
+     <app-solution [solution]="solution">
+     </app-solution>
    </div>
 
     <ng-template #nosolution_content>No Solution for this Project
@@ -26,7 +27,8 @@
 
   <div class="endeavor">
     <div *ngIf="endeavor !== undefined; else noendeavor_content">
-      <a [routerLink]="['/endeavor/', solution.id ]" [state]=endeavor> {{ endeavor.description }} </a>
+      <app-endeavor [endeavor]="endeavor">
+      </app-endeavor>
     </div>
 
     <ng-template #noendeavor_content>No Endeavor for this Project
