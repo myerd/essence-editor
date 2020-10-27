@@ -14,22 +14,27 @@ import { StakeholdersComponent } from './pages/stakeholders/stakeholders.compone
 import { TeamComponent } from './pages/team/team.component';
 import { WorkComponent } from './pages/work/work.component';
 import { WayofworkComponent } from './pages/wayofwork/wayofwork.component';
+import { AuthGuard } from './services/auth.service';
+import { LoginComponent } from './pages/login/login.component';
+import { SignupComponent } from './pages/signup/signup.component';
 
 
 const routes: Routes = [
   { path: '', component: MainComponent},
-  { path: 'solution/:id', component: SolutionComponent},
-  { path: 'customer/:id', component: CustomerComponent},
-  { path: 'endeavor/:id', component: EndeavorComponent},
-  { path: 'card', component: CardComponent},
-  { path: 'project/:id', component: ProjectComponent},
-  { path: 'requirements/:id', component: RequirementsComponent},
-  { path: 'softwaresystems/:id', component: SoftwaresystemComponent},
-  { path: 'opportunity/:id', component: OpportunityComponent},
-  { path: 'stakeholders/:id', component: StakeholdersComponent},
-  { path: 'team/:id', component: TeamComponent},
-  { path: 'work/:id', component: WorkComponent},
-  { path: 'wayofwork/:id', component: WayofworkComponent}
+  { path: 'login', component: LoginComponent},
+  { path: 'signup', component: SignupComponent},
+  { path: 'solution/:id', component: SolutionComponent, canActivate: [AuthGuard]},
+  { path: 'customer/:id', component: CustomerComponent, canActivate: [AuthGuard]},
+  { path: 'endeavor/:id', component: EndeavorComponent, canActivate: [AuthGuard]},
+  { path: 'card', component: CardComponent, canActivate: [AuthGuard]},
+  { path: 'project/:id', component: ProjectComponent, canActivate: [AuthGuard]},
+  { path: 'requirements/:id', component: RequirementsComponent, canActivate: [AuthGuard]},
+  { path: 'softwaresystems/:id', component: SoftwaresystemComponent, canActivate: [AuthGuard]},
+  { path: 'opportunity/:id', component: OpportunityComponent, canActivate: [AuthGuard]},
+  { path: 'stakeholders/:id', component: StakeholdersComponent, canActivate: [AuthGuard]},
+  { path: 'team/:id', component: TeamComponent, canActivate: [AuthGuard]},
+  { path: 'work/:id', component: WorkComponent, canActivate: [AuthGuard]},
+  { path: 'wayofwork/:id', component: WayofworkComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({

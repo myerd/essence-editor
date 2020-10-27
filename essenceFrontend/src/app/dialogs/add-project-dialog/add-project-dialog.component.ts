@@ -16,9 +16,6 @@ export class AddProjectDialogComponent implements OnInit {
     private _fb: FormBuilder,
     private _dialogRef: MatDialogRef<AddProjectDialogComponent>
   )
-    //@Inject(MAT_DIALOG_DATA) data: any) {
-    //this.originalRink = data.pageValue;
-  //}
   {}
 
   public ngOnInit(): void {
@@ -34,21 +31,12 @@ export class AddProjectDialogComponent implements OnInit {
         Validators.minLength(1)
       ])
     });
-    //this.form.controls['title'].setValue(this.originalRink.name);
-    //this.form.controls['city'].setValue(this.originalRink.city);
   }
 
   public save(): void {
     const projecttoAdd: Project = this.form.value as Project;
-    //editedRink.id = this.originalRink.id;
-    const forDeleting: boolean = false;
     this._dialogRef.close(projecttoAdd);
   }
-
-  /*public delete(): void {
-    const forDeleting: boolean = true;
-    this._dialogRef.close([this.originalRink, forDeleting]);
-  }*/
 
   public close(): void {
     this._dialogRef.close();

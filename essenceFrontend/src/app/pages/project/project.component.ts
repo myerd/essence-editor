@@ -1,17 +1,19 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
-import { ProjectService } from '../../services/project.service';
-import { SolutionService } from '../../services/solution.service';
+import { ProjectService } from '../../services/http/project.service';
+import { SolutionService } from '../../services/http/solution.service';
 import { Solution } from '../../models/solution';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { AddSolutionDialogComponent } from '../../dialogs/add-solution-dialog/add-solution-dialog.component';
-import { EndeavorService } from '../../services/endeavor.service';
-import { CustomerService } from '../../services/customer.service';
+import { EndeavorService } from '../../services/http/endeavor.service';
+import { CustomerService } from '../../services/http/customer.service';
 import { Endeavor } from '../../models/endeavor';
 import { Customer } from '../../models/customer';
 import { AddEndeavorDialogComponent } from '../../dialogs/add-endeavor-dialog/add-endeavor-dialog.component';
 import { AddCustomerDialogComponent } from '../../dialogs/add-customer-dialog/add-customer-dialog.component';
 import { ActivatedRoute } from '@angular/router';
 import { take } from 'rxjs/operators';
+import { ProjectdataService } from '../../services/datasources/projectdata.service';
+import { BehaviorSubject } from 'rxjs';
 
 
 @Component({
@@ -25,6 +27,7 @@ export class ProjectComponent implements OnInit {
   public solution: Solution;
   public endeavor: Endeavor;
   public customer: Customer;
+  public dataSource: ProjectdataService;
 
   constructor(
     private _dialog: MatDialog,
@@ -38,7 +41,7 @@ export class ProjectComponent implements OnInit {
   ngOnInit(): void {
     this._route.params.subscribe((params) => {
       this.projectId = params['id'];
-      this._solutionService.getSolution(this.projectId).pipe(take(1)).subscribe(
+   /*   this._solutionService.getSolution(this.projectId).pipe(take(1)).subscribe(
         result => {
           console.log(result);
           this.solution = result[0];
@@ -55,8 +58,13 @@ export class ProjectComponent implements OnInit {
           console.log(result);
           this.customer = result[0];
         }
-      );
+      );*/
     });
+    this.dataSource = new ProjectdataService(
+      this.projectId,
+      this._solutionService,
+      this._endeavorService,
+      this._customerService);
   }
 
   public add_solution(): void {
@@ -67,6 +75,7 @@ export class ProjectComponent implements OnInit {
       this._solutionService.addSolution(result, this.projectId).subscribe(
         resulti => {
           console.log(resulti);
+          this.dataSource.addSolution(resulti);
         }
       );
     });
@@ -80,6 +89,7 @@ export class ProjectComponent implements OnInit {
       this._endeavorService.addEndeavor(result, this.projectId).subscribe(
         resulti => {
           console.log(resulti);
+          this.dataSource.addEndeavor(resulti);
         }
       );
     });
@@ -93,6 +103,7 @@ export class ProjectComponent implements OnInit {
       this._customerService.addCustomer(result, this.projectId).subscribe(
         resulti => {
           console.log(resulti);
+          this.dataSource.addCustomer(resulti);
         }
       );
     });

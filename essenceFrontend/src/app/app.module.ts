@@ -12,7 +12,7 @@ import { MainComponent } from './pages/main/main.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RequirementsComponent } from './pages/requirements/requirements.component';
 import { SoftwaresystemComponent } from './pages/softwaresystem/softwaresystem.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CardComponent } from './components/card/card.component';
 import { AddProjectDialogComponent } from './dialogs/add-project-dialog/add-project-dialog.component';
@@ -41,6 +41,9 @@ import { AddCarddataDialogComponent } from './dialogs/add-carddata-dialog/add-ca
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatCardModule } from '@angular/material/card';
+import { SignupComponent } from './pages/signup/signup.component';
+import { AuthGuard, AuthInterceptor, AuthService } from './services/auth.service';
+import { LoginComponent } from './pages/login/login.component';
 
 @NgModule({
   declarations: [
@@ -71,7 +74,9 @@ import { MatCardModule } from '@angular/material/card';
     AddStakeholdersDialogComponent,
     StakeholdersComponent,
     OpportunityComponent,
-    AddCarddataDialogComponent
+    AddCarddataDialogComponent,
+    SignupComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -88,7 +93,15 @@ import { MatCardModule } from '@angular/material/card';
     FlexLayoutModule,
     MatCardModule
   ],
-  providers: [],
+  providers: [
+    AuthService,
+    AuthGuard,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

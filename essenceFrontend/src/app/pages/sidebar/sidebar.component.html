@@ -1,7 +1,13 @@
+<!--<div *ngIf="_userName !== undefined; else not_loggedIn">-->
+  {{ _userName }} <br>
+  <button mat-stroked-button (click)="logout()">LOGOUT</button>
+  <h1><a routerLink="/">MAIN</a></h1>
+  <li  *ngFor="let project of projects">
+    <a [routerLink]="['/project/', project.id]"> {{ project.title }} </a>
+    <br> || {{ project.description}}
+  </li>
+  <button mat-mini-fab (click)="add_project()">+</button>
 <a routerLink="/login">Login</a>
-<h1><a routerLink="/">MAIN</a></h1>
-<li  *ngFor="let project of projects">
-  <a [routerLink]="['/project/', project.id]"> {{ project.title }} </a>
-  <br> || {{ project.description}}
-</li>
-<button mat-mini-fab (click)="add_project()">+</button>
+<ng-template #not_loggedIn>
+</ng-template>
+

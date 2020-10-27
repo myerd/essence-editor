@@ -1,5 +1,6 @@
-from django.conf.urls import url
+from django.conf.urls import url, include
 from . import views
+from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token
 
 urlpatterns = [
     url(r'^api/card$', views.card_list),
@@ -7,8 +8,7 @@ urlpatterns = [
     url(r'^api/card/(?P<pk>[0-9]+)/data$', views.card_data),
     url(r'^api/card/data/(?P<pk2>[0-9]+)$', views.card_data_update),
     url(r'^api/card/completed$', views.card_list_completed),
-    # url(r'^api/endeavor/team/(?P<pk>[0-9]+)$', views.team_detail),
-    url(r'^api/project$', views.project_list),
+    url(r'^api/project/(?P<pk>[0-9]+)$', views.project_list),
     url(r'^api/project/(?P<pk>[0-9]+)/solution$', views.solution_list),
     url(r'^api/solution/(?P<pk>[0-9]+)/requirements$', views.requirements),
     url(r'^api/requirements/(?P<pk>[0-9]+)/card$', views.requirements_card_list),
@@ -25,6 +25,8 @@ urlpatterns = [
     url(r'^api/endeavor/(?P<pk>[0-9]+)/team$', views.team_list),
     url(r'^api/team/(?P<pk>[0-9]+)/card$', views.team_card_list),
     url(r'^api/endeavor/(?P<pk>[0-9]+)/wayofwork$', views.wayofwork),
-    url(r'^api/wayofwork/(?P<pk>[0-9]+)/card$', views.wayofwork_card_list)
-
+    url(r'^api/wayofwork/(?P<pk>[0-9]+)/card$', views.wayofwork_card_list),
+    url(r'^auth/refresh-token/', refresh_jwt_token),
+    url(r'^auth/', include('rest_auth.urls')),
+    url(r'^auth/signup/', include('rest_auth.registration.urls')),
 ]

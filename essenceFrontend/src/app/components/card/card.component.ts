@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { CardService } from '../../services/card.service';
+import { CardService } from '../../services/http/card.service';
 import { Card } from '../../models/card';
 import { Cardattribute } from '../../models/cardattribute';
 import { take } from 'rxjs/operators';

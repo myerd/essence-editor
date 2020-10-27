@@ -7,9 +7,9 @@ from essence.models import Project
 
 #Project API views:
 @api_view(['GET', 'POST'])
-def project_list(request):
+def project_list(request, pk):
     if request.method == 'GET':
-        projects = Project.objects.all()
+        projects = Project.objects.filter(user=pk)
         projects_serializer = ProjectSerializer(projects, many=True)
         return JsonResponse(projects_serializer.data, safe=False)
     elif request.method == 'POST':
@@ -18,3 +18,5 @@ def project_list(request):
         if project_serializer.is_valid():
             project_serializer.save()
             return JsonResponse(project_serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return JsonResponse(project_serializer.errors, status=status.HTTP_400_BAD_REQUEST)

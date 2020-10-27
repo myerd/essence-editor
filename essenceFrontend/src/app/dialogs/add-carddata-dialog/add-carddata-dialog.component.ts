@@ -38,7 +38,7 @@ export class AddCarddataDialogComponent implements OnInit {
 
   /*public delete(): void {
     const forDeleting: boolean = true;
-    this._dialogRef.close([this.originalRink, forDeleting]);
+    this._dialogRef.close();
   }*/
 
   public close(): void {

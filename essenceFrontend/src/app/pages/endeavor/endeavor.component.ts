@@ -1,9 +1,9 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { EndeavorService } from '../../services/endeavor.service';
-import { TeamService } from '../../services/team.service';
-import { WorkService } from '../../services/work.service';
-import { WayofworkService } from '../../services/wayofwork.service';
+import { EndeavorService } from '../../services/http/endeavor.service';
+import { TeamService } from '../../services/http/team.service';
+import { WorkService } from '../../services/http/work.service';
+import { WayofworkService } from '../../services/http/wayofwork.service';
 import { Wayofwork } from '../../models/wayofwork';
 import { Team } from '../../models/team';
 import { Work } from '../../models/work';

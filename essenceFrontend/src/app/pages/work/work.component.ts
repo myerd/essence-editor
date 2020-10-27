@@ -2,9 +2,9 @@ import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/cor
 import { Card } from '../../models/card';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
-import { CardService } from '../../services/card.service';
+import { CardService } from '../../services/http/card.service';
 import { AddCardDialogComponent } from '../../dialogs/add-card-dialog/add-card-dialog.component';
-import { WorkService } from '../../services/work.service';
+import { WorkService } from '../../services/http/work.service';
 import { Work } from '../../models/work';
 import { take } from 'rxjs/operators';
 

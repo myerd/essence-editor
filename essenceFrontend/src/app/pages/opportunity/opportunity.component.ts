@@ -2,9 +2,9 @@ import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/cor
 import { Card } from '../../models/card';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
-import { CardService } from '../../services/card.service';
+import { CardService } from '../../services/http/card.service';
 import { AddCardDialogComponent } from '../../dialogs/add-card-dialog/add-card-dialog.component';
-import { OpportunityService } from '../../services/opportunity.service';
+import { OpportunityService } from '../../services/http/opportunity.service';
 import { Opportunity } from '../../models/opportunity';
 import { take } from 'rxjs/operators';
 

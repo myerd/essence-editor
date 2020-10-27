@@ -1,23 +1,22 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Endeavor } from '../models/endeavor';
 import { HttpClient } from '@angular/common/http';
-
+import { Customer } from '../../models/customer';
 
 @Injectable({
   providedIn: 'root'
 })
-export class EndeavorService {
+export class CustomerService {
 
   constructor(private _http: HttpClient) { }
 
-  public getEndeavor(id): Observable<Endeavor[]> {
+  public getCustomer(id): Observable<Customer[]> {
     const  options = {headers: {'Content-Type': 'application/json'}};
-    return this._http.get<Endeavor[]>(`api/project/${id}/endeavor`, options);
+    return this._http.get<Customer[]>(`api/project/${id}/customer`, options);
   }
 
-  public addEndeavor(endeavor: Endeavor, id): Observable<Endeavor> {
+  public addCustomer(customer: Customer, id): Observable<Customer> {
     const  options = {headers: {'Content-Type': 'application/json'}};
-    return this._http.post<Endeavor>(`api/project/${id}/endeavor`, endeavor, options);
+    return this._http.post<Customer>(`api/project/${id}/customer`, customer, options);
   }
 }

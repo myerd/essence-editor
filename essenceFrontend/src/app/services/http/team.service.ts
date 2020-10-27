@@ -1,28 +1,28 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Work } from '../models/work';
-import { Card } from '../models/card';
+import { Team } from '../../models/team';
+import { Card } from '../../models/card';
 
 @Injectable({
   providedIn: 'root'
 })
-export class WorkService {
+export class TeamService {
 
   constructor(private _http: HttpClient) { }
 
-  public getWork(id): Observable<Work[]> {
+  public getTeam(id): Observable<Team[]> {
     const  options = {headers: {'Content-Type': 'application/json'}};
-    return this._http.get<Work[]>(`api/endeavor/${id}/work`, options);
+    return this._http.get<Team[]>(`api/endeavor/${id}/team`, options);
   }
 
-  public addWork(work, id): Observable<Work> {
+  public addTeam(team, id): Observable<Team> {
     const  options = {headers: {'Content-Type': 'application/json'}};
-    return this._http.post<Work>(`api/endeavor/${id}/work`, work, options);
+    return this._http.post<Team>(`api/endeavor/${id}/team`, team, options);
   }
 
   public getCards(id): Observable<Card[]> {
     const  options = {headers: {'Content-Type': 'application/json'}};
-    return this._http.get<Card[]>(`api/work/${id}/card`, options);
+    return this._http.get<Card[]>(`api/team/${id}/card`, options);
   }
 }

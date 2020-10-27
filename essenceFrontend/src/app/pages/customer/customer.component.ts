@@ -1,9 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { AddOpportunityDialogComponent } from '../../dialogs/add-opportunity-dialog/add-opportunity-dialog.component';
-import { OpportunityService } from '../../services/opportunity.service';
-import { CustomerService } from '../../services/customer.service';
-import { StakeholdersService } from '../../services/stakeholders.service';
+import { OpportunityService } from '../../services/http/opportunity.service';
+import { CustomerService } from '../../services/http/customer.service';
+import { StakeholdersService } from '../../services/http/stakeholders.service';
 import { Stakeholders } from '../../models/stakeholders';
 import { Opportunity } from '../../models/opportunity';
 import { Customer } from '../../models/customer';

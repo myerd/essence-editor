@@ -16,9 +16,6 @@ export class AddCardDialogComponent implements OnInit {
     private _fb: FormBuilder,
     private _dialogRef: MatDialogRef<AddCardDialogComponent>
   )
-  //@Inject(MAT_DIALOG_DATA) data: any) {
-  //this.originalRink = data.pageValue;
-  //}
   {}
 
   public ngOnInit(): void {
@@ -34,8 +31,6 @@ export class AddCardDialogComponent implements OnInit {
         Validators.minLength(1)
       ])
     });
-    //this.form.controls['title'].setValue(this.originalRink.name);
-    //this.form.controls['city'].setValue(this.originalRink.city);
   }
 
   public save(): void {
@@ -47,7 +42,7 @@ export class AddCardDialogComponent implements OnInit {
 
   /*public delete(): void {
     const forDeleting: boolean = true;
-    this._dialogRef.close([this.originalRink, forDeleting]);
+    this._dialogRef.close();
   }*/
 
   public close(): void {

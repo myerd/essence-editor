@@ -1,7 +1,7 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { RequirementsService } from '../../services/requirements.service';
+import { RequirementsService } from '../../services/http/requirements.service';
 import { Card } from '../../models/card';
-import { CardService } from '../../services/card.service';
+import { CardService } from '../../services/http/card.service';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { AddCardDialogComponent } from '../../dialogs/add-card-dialog/add-card-dialog.component';

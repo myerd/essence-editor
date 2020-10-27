@@ -16,11 +16,7 @@ export class AddWayofworkDialogComponent implements OnInit {
   public constructor(
     private _fb: FormBuilder,
     private _dialogRef: MatDialogRef<AddWayofworkDialogComponent>
-  )
-  //@Inject(MAT_DIALOG_DATA) data: any) {
-  //this.originalRink = data.pageValue;
-  //}
-  {}
+  ) {}
 
   public ngOnInit(): void {
     this.form = this._fb.group({
@@ -39,7 +35,7 @@ export class AddWayofworkDialogComponent implements OnInit {
 
   /*public delete(): void {
     const forDeleting: boolean = true;
-    this._dialogRef.close([this.originalRink, forDeleting]);
+    this._dialogRef.close();
   }*/
 
   public close(): void {

@@ -1,6 +1,6 @@
 <div class="row">
   <div class="customer">
-    <div *ngIf="customer !== undefined; else nocustomer_content">
+    <div *ngIf="dataSource._customer !== undefined; else nocustomer_content">
      <app-customer [customer]="customer">
      </app-customer>
     </div>
@@ -13,7 +13,7 @@
 </div>
 <div class="row">
   <div class="solution">
-   <div *ngIf="solution !== undefined; else nosolution_content">
+   <div *ngIf="dataSource._solution !== undefined; else nosolution_content">
      <app-solution [solution]="solution">
      </app-solution>
    </div>
@@ -26,7 +26,7 @@
   </div>
 
   <div class="endeavor">
-    <div *ngIf="endeavor !== undefined; else noendeavor_content">
+    <div *ngIf="dataSource._endeavor !== undefined; else noendeavor_content">
       <app-endeavor [endeavor]="endeavor">
       </app-endeavor>
     </div>
