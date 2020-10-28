@@ -1,12 +1,11 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { Card } from '../../models/card';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { CardService } from '../../services/http/card.service';
 import { AddCardDialogComponent } from '../../dialogs/add-card-dialog/add-card-dialog.component';
 import { OpportunityService } from '../../services/http/opportunity.service';
 import { Opportunity } from '../../models/opportunity';
-import { take } from 'rxjs/operators';
+import { OpportunitydataService } from '../../services/datasources/opportunitydata.service';
 
 @Component({
   selector: 'app-opportunity',
@@ -16,7 +15,7 @@ import { take } from 'rxjs/operators';
 export class OpportunityComponent implements OnInit, OnChanges {
 
   @Input() oppo: Opportunity;
-  public cards: Card[] = [];
+  public dataSource: OpportunitydataService;
 
   constructor(
     private _dialog: MatDialog,
@@ -25,23 +24,23 @@ export class OpportunityComponent implements OnInit, OnChanges {
     private _cardService: CardService
   ) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.dataSource = new OpportunitydataService(
+      this.oppo.id,
+      this._opportunityService
+    );
+  }
 
   public ngOnChanges(changes: SimpleChanges) {
-    this._opportunityService.getCards(changes.oppo.currentValue.id).pipe(take(1)).subscribe(result => {
-      console.log(result);
-      this.cards = result;
-    });
   }
 
   public add_card(): void {
-    const dialogConfig = new MatDialogConfig();
     const dialogRef = this._dialog.open(AddCardDialogComponent);
     dialogRef.afterClosed().subscribe(result => {
       result.opportunity = this.oppo.id;
       this._cardService.addCard(result).subscribe(
         resulti => {
-          console.log(resulti);
+          this.dataSource.addCard(resulti);
         }
       );
     });

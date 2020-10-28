@@ -1,12 +1,11 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { Card } from '../../models/card';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { CardService } from '../../services/http/card.service';
 import { AddCardDialogComponent } from '../../dialogs/add-card-dialog/add-card-dialog.component';
 import { StakeholdersService } from '../../services/http/stakeholders.service';
 import { Stakeholders } from '../../models/stakeholders';
-import { take } from 'rxjs/operators';
+import { StakeholderdataService } from '../../services/datasources/stakeholderdata.service';
 
 @Component({
   selector: 'app-stakeholders',
@@ -16,7 +15,7 @@ import { take } from 'rxjs/operators';
 export class StakeholdersComponent implements OnInit, OnChanges {
 
   @Input() stake: Stakeholders;
-  public cards: Card[] = [];
+  public dataSource: StakeholderdataService;
 
   constructor(
     private _dialog: MatDialog,
@@ -25,21 +24,23 @@ export class StakeholdersComponent implements OnInit, OnChanges {
     private _cardService: CardService
   ) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.dataSource = new StakeholderdataService(
+      this.stake.id,
+      this._stakeholderService
+    );
+  }
 
   public ngOnChanges(changes: SimpleChanges) {
-    this._stakeholderService.getCards(changes.stake.currentValue.id).pipe(take(1)).subscribe(result => {
-      this.cards = result;
-    });
   }
+
   public add_card(): void {
-    const dialogConfig = new MatDialogConfig();
     const dialogRef = this._dialog.open(AddCardDialogComponent);
     dialogRef.afterClosed().subscribe(result => {
       result.stakeholders = this.stake.id;
       this._cardService.addCard(result).subscribe(
         resulti => {
-          console.log(resulti);
+          this.dataSource.addCard(resulti);
         }
       );
     });

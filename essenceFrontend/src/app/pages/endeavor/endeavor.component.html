@@ -14,9 +14,9 @@
       Hide Cards
     </button>
     <div *ngIf="team && !work && !wayofwork">
-      <div *ngIf="tea !== undefined; else no_team">
-          <p>{{ tea.description }}</p><br>
-          <app-team [team]="tea">
+      <div *ngIf="dataSource.team !== undefined; else no_team">
+          <p>{{ dataSource.team.description }}</p><br>
+          <app-team [team]="dataSource.team">
           </app-team>
       </div>
     </div>
@@ -24,9 +24,9 @@
       <button mat-stroked-button (click)="addTeam()">+Team</button>
     </ng-template>
     <div *ngIf="work && !team && !wayofwork">
-      <div *ngIf="wor !== undefined; else no_work">
-          <p>{{ wor.description }}</p><br>
-        <app-work [work]="wor">
+      <div *ngIf="dataSource.work !== undefined; else no_work">
+          <p>{{ dataSource.work.description }}</p><br>
+        <app-work [work]="dataSource.work">
         </app-work>
       </div>
     </div>
@@ -34,9 +34,9 @@
       <button mat-stroked-button (click)="addWork()">+Work</button>
     </ng-template>
   <div *ngIf="wayofwork && !team && !work">
-    <div *ngIf="wow !== undefined; else no_wow">
-        <p>{{ wow.description }}</p><br>
-      <app-wayofwork [wow]="wow">
+    <div *ngIf="dataSource.wayofwork !== undefined; else no_wow">
+        <p>{{ dataSource.wayofwork.description }}</p><br>
+      <app-wayofwork [wow]="dataSource.wayofwork">
       </app-wayofwork>
     </div>
   </div>

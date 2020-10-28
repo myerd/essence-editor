@@ -9,7 +9,7 @@ import { AddRequirementsDialogComponent } from '../../dialogs/add-requirements-d
 import { Softwaresystems } from '../../models/softwaresystems';
 import { SoftwaresystemsService } from '../../services/http/softwaresystems.service';
 import { AddSoftwaresystemsDialogComponent } from '../../dialogs/add-softwaresystems-dialog/add-softwaresystems-dialog.component';
-import { take } from 'rxjs/operators';
+import { SolutiondataService } from '../../services/datasources/solutiondata.service';
 
 @Component({
   selector: 'app-solution',
@@ -19,10 +19,9 @@ import { take } from 'rxjs/operators';
 export class SolutionComponent implements OnInit, OnChanges {
 
   @Input() solution: Solution;
-  public requir: Requirements;
-  public softwarsys: Softwaresystems;
   public requirements = false;
   public softwaresystems = false;
+  public dataSource: SolutiondataService;
 
   constructor(
     private _dialog: MatDialog,
@@ -33,7 +32,11 @@ export class SolutionComponent implements OnInit, OnChanges {
   ) { }
 
   ngOnInit() {
-
+    this.dataSource = new SolutiondataService(
+      this.solution.id,
+      this._requirementsService,
+      this._softwaresystemsService
+      );
   }
 
   public ngOnChanges(changes: SimpleChanges): void {
@@ -42,56 +45,39 @@ export class SolutionComponent implements OnInit, OnChanges {
   public showRequirements() {
     this.requirements = true;
     this.softwaresystems = false;
-    this._requirementsService.getRequirements(this.solution.id).pipe(take(1)).subscribe(result => {
-      console.log(result[0])
-      if (result) {
-        this.requir = result[0];
-        console.log(this.requir.id);
-      }
-      else {
-        console.log('UNDEFINED');
-      }
-    });
   }
 
   public addRequirements(): void {
-    const dialogConfig = new MatDialogConfig();
     const dialogRef = this._dialog.open(AddRequirementsDialogComponent);
     dialogRef.afterClosed().subscribe(result => {
-      result.solution = this.solution.id;
-      this._requirementsService.addRequirements(result, this.solution.id).subscribe(
-        resulti => {
-          console.log(resulti);
-        }
-      );
+      if (result) {
+        result.solution = this.solution.id;
+        this._requirementsService.addRequirements(result, this.solution.id).subscribe(
+          resulti => {
+            this.dataSource.addRequirements(resulti);
+          }
+        );
+      }
     });
   }
 
   public showSoftwaresystems() {
     this.requirements = false;
     this.softwaresystems = true;
-    this._softwaresystemsService.getSoftwaresystems(this.solution.id).pipe(take(1)).subscribe(result => {
-      console.log(result[0])
-      if (result) {
-        this.softwarsys = result[0];
-        console.log(this.softwarsys.id);
-      }
-      else {
-        console.log('UNDEFINED');
-      }
-    });
+
   }
 
   public addSoftwaresystems(): void {
-    const dialogConfig = new MatDialogConfig();
     const dialogRef = this._dialog.open(AddSoftwaresystemsDialogComponent);
     dialogRef.afterClosed().subscribe(result => {
-      result.solution = this.solution.id;
-      this._softwaresystemsService.addSoftwaresystems(result, this.solution.id).subscribe(
-        resulti => {
-          console.log(resulti);
-        }
-      );
+      if (result) {
+        result.solution = this.solution.id;
+        this._softwaresystemsService.addSoftwaresystems(result, this.solution.id).subscribe(
+          resulti => {
+            this.dataSource.addSoftwaresystems(resulti);
+          }
+        );
+      }
     });
   }
 

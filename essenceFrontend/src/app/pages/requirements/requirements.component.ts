@@ -1,12 +1,11 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { RequirementsService } from '../../services/http/requirements.service';
-import { Card } from '../../models/card';
 import { CardService } from '../../services/http/card.service';
 import { ActivatedRoute } from '@angular/router';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatDialog} from '@angular/material/dialog';
 import { AddCardDialogComponent } from '../../dialogs/add-card-dialog/add-card-dialog.component';
 import { Requirements } from '../../models/requirements';
-import { take } from 'rxjs/operators';
+import { RequirementsdataService } from '../../services/datasources/requirementsdata.service';
 
 
 
@@ -18,7 +17,7 @@ import { take } from 'rxjs/operators';
 export class RequirementsComponent implements OnInit, OnChanges {
 
   @Input() req: Requirements;
-  public cards: Card[] = [];
+  public dataSource: RequirementsdataService;
 
   constructor(
     private _dialog: MatDialog,
@@ -27,26 +26,27 @@ export class RequirementsComponent implements OnInit, OnChanges {
     private _cardService: CardService
   ) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.dataSource = new RequirementsdataService(
+      this.req.id,
+      this._requirementsService
+    );
+  }
 
   public ngOnChanges(changes: SimpleChanges) {
-    this._requirementsService.getCards(changes.req.currentValue.id).pipe(take(1)).subscribe(result => {
-      console.log(result);
-      this.cards = result;
-    });
   }
 
   public add_card(): void {
-    const dialogConfig = new MatDialogConfig();
     const dialogRef = this._dialog.open(AddCardDialogComponent);
     dialogRef.afterClosed().subscribe(result => {
-      result.requirements = this.req.id;
-      this._cardService.addCard(result).subscribe(
-        resulti => {
-          console.log(resulti);
-        }
-      );
-    });
+      if (result) {
+        result.requirements = this.req.id;
+        this._cardService.addCard(result).subscribe(
+          resulti => {
+            this.dataSource.addCard(resulti);
+          }
+        );
+      }});
   }
 
 }

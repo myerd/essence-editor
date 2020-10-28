@@ -7,7 +7,7 @@
       <p>
         {{ card.description }}
       </p>
-      <div *ngFor="let data of cardsdata">
+      <div *ngFor="let data of dataSource.cardData">
         <input type="checkbox" [checked]="data.completed" [disabled]="!isEditing"
                (click)="setCheckbox($event,data)">
         {{ data.task }}

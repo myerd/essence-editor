@@ -9,6 +9,7 @@ import { Opportunity } from '../../models/opportunity';
 import { Customer } from '../../models/customer';
 import { AddStakeholdersDialogComponent } from '../../dialogs/add-stakeholders-dialog/add-stakeholders-dialog.component';
 import { take } from 'rxjs/operators';
+import { CustomerdataService } from '../../services/datasources/customerdata.service';
 
 @Component({
   selector: 'app-customer',
@@ -20,9 +21,7 @@ export class CustomerComponent implements OnInit {
   @Input() customer: Customer;
   public opportunity;
   public stakeholders;
-  public stakehol: Stakeholders;
-  public oppor: Opportunity;
-
+  public dataSource: CustomerdataService;
 
   constructor(
     private _opportunityService: OpportunityService,
@@ -32,61 +31,48 @@ export class CustomerComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.dataSource = new CustomerdataService(
+      this.customer.id,
+      this._opportunityService,
+      this._stakeholderService
+    );
   }
 
   public showOpportunity() {
     this.opportunity = true;
     this.stakeholders = false;
-    this._opportunityService.getOpportunity(this.customer.id).pipe(take(1)).subscribe(result => {
-      console.log(result[0])
-      if (result) {
-        this.oppor = result[0];
-        console.log(this.oppor.id);
-      }
-      else {
-        console.log('UNDEFINED');
-      }
-    });
   }
 
   public addOpportunity(): void {
-    const dialogConfig = new MatDialogConfig();
     const dialogRef = this._dialog.open(AddOpportunityDialogComponent);
     dialogRef.afterClosed().subscribe(result => {
-      result.customer = this.customer.id;
-      this._opportunityService.addOpportunity(result, this.customer.id).subscribe(
-        resulti => {
-          console.log(resulti);
-        }
-      );
+      if (result) {
+        result.customer = this.customer.id;
+        this._opportunityService.addOpportunity(result, this.customer.id).subscribe(
+          resulti => {
+            this.dataSource.addOpportunity(resulti);
+          }
+        );
+      }
     });
   }
 
   public showStakeholders() {
     this.opportunity = false;
     this.stakeholders = true;
-    this._stakeholderService.getStakeholders(this.customer.id).pipe(take(1)).subscribe(result => {
-      console.log(result[0])
-      if (result) {
-        this.stakehol = result[0];
-        console.log(this.stakehol.id);
-      }
-      else {
-        console.log('UNDEFINED');
-      }
-    });
   }
 
   public addStakeholders(): void {
-    const dialogConfig = new MatDialogConfig();
     const dialogRef = this._dialog.open(AddStakeholdersDialogComponent);
     dialogRef.afterClosed().subscribe(result => {
-      result.customer = this.customer.id;
-      this._stakeholderService.addStakeholders(result, this.customer.id).subscribe(
-        resulti => {
-          console.log(resulti);
-        }
-      );
+      if (result) {
+        result.customer = this.customer.id;
+        this._stakeholderService.addStakeholders(result, this.customer.id).subscribe(
+          resulti => {
+            this.dataSource.addStakeholders(resulti);
+          }
+        );
+      }
     });
   }
 

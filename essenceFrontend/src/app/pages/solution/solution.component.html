@@ -11,9 +11,9 @@
     Hide Cards
   </button>
   <div *ngIf="requirements && !softwaresystems">
-    <div *ngIf="requir !== undefined; else no_requirements">
-          <p>{{ requir.description }}</p>
-      <app-requirements [req]="requir">
+    <div *ngIf="dataSource.requirements !== undefined; else no_requirements">
+          <p>{{ dataSource.requirements.description }}</p>
+      <app-requirements [req]="dataSource.requirements">
       </app-requirements>
     </div>
   </div>
@@ -21,9 +21,9 @@
     <button mat-stroked-button (click)="addRequirements()">+Requirements</button>
   </ng-template>
   <div *ngIf="softwaresystems && !requirements">
-    <div *ngIf="softwarsys !== undefined; else no_softwaresys">
-      <p>{{ softwarsys.description }}</p>
-     <app-softwaresystem [sys]="softwarsys">
+    <div *ngIf="dataSource.softwaresystems !== undefined; else no_softwaresys">
+      <p>{{ dataSource.softwaresystems.description }}</p>
+     <app-softwaresystem [sys]="dataSource.softwaresystems">
      </app-softwaresystem>
     </div>
   </div>

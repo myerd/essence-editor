@@ -4,7 +4,7 @@ import { User } from '../models/User';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import * as moment from 'moment';
 import { shareReplay, tap } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { Observable, ReplaySubject } from 'rxjs';
 import { CanActivate, Router } from '@angular/router';
 
 
@@ -13,6 +13,9 @@ import { CanActivate, Router } from '@angular/router';
 })
 export class AuthService {
 
+
+  private isAuthenticatedSubject = new ReplaySubject<boolean>(1);
+  public isAuthenticated = this.isAuthenticatedSubject.asObservable();
   private _userName;
   private _activeUserId;
   private apiRoot = 'http://localhost:8080/auth/';
@@ -28,6 +31,7 @@ export class AuthService {
     this._userName = payload.username;
     localStorage.setItem('token', authResult.token);
     localStorage.setItem('expires_at', JSON.stringify(expiresAt.valueOf()));
+    this.isAuthenticatedSubject.next(true);
   }
 
   public getActiveUserId(): string {
@@ -66,6 +70,7 @@ export class AuthService {
   public logout() {
     localStorage.removeItem('token');
     localStorage.removeItem('expires_at');
+    this.isAuthenticatedSubject.next(false);
   }
 
   public refreshToken() {

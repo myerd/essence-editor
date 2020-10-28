@@ -1,12 +1,11 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { Card } from '../../models/card';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { CardService } from '../../services/http/card.service';
 import { AddCardDialogComponent } from '../../dialogs/add-card-dialog/add-card-dialog.component';
 import { SoftwaresystemsService } from '../../services/http/softwaresystems.service';
-import { take } from 'rxjs/operators';
 import { Softwaresystems } from '../../models/softwaresystems';
+import { SoftwaresystemsdataService } from '../../services/datasources/softwaresystemsdata.service';
 
 @Component({
   selector: 'app-softwaresystem',
@@ -16,7 +15,7 @@ import { Softwaresystems } from '../../models/softwaresystems';
 export class SoftwaresystemComponent implements OnInit, OnChanges {
 
   @Input() sys: Softwaresystems;
-  public cards: Card[] = [];
+  public dataSource: SoftwaresystemsdataService;
 
   constructor(
     private _dialog: MatDialog,
@@ -26,25 +25,26 @@ export class SoftwaresystemComponent implements OnInit, OnChanges {
   ) { }
 
   ngOnInit(): void {
+    this.dataSource = new SoftwaresystemsdataService(
+      this.sys.id,
+      this._softwaresystemsService
+    );
   }
 
   public ngOnChanges(changes: SimpleChanges) {
-    this._softwaresystemsService.getCards(changes.sys.currentValue.id).pipe(take(1)).subscribe(result => {
-      console.log(result);
-      this.cards = result;
-    });
   }
+
   public add_card(): void {
-    const dialogConfig = new MatDialogConfig();
     const dialogRef = this._dialog.open(AddCardDialogComponent);
     dialogRef.afterClosed().subscribe(result => {
-      result.softwaresys = this.sys.id;
-      this._cardService.addCard(result).subscribe(
-        resulti => {
-          console.log(resulti);
-          // this._router.navigateByUrl('/project');
-        }
-      );
+      if (result) {
+        result.softwaresys = this.sys.id;
+        this._cardService.addCard(result).subscribe(
+          resulti => {
+            this.dataSource.addCard(resulti);
+          }
+        );
+      }
     });
   }
 }
