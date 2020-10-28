@@ -17,7 +17,6 @@ export class ProjectService {
 
   public getProjects(userId: string): Observable<Project[]> {
     const  options = {headers: {'Content-Type': 'application/json'}};
-    console.log(userId);
     return this._http.get<Project[]>(`api/project/${userId}`, options);
   }
 }

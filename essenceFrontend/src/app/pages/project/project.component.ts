@@ -7,7 +7,7 @@ import { EndeavorService } from '../../services/http/endeavor.service';
 import { CustomerService } from '../../services/http/customer.service';
 import { AddEndeavorDialogComponent } from '../../dialogs/add-endeavor-dialog/add-endeavor-dialog.component';
 import { AddCustomerDialogComponent } from '../../dialogs/add-customer-dialog/add-customer-dialog.component';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ProjectdataService } from '../../services/datasources/projectdata.service';
 
 
@@ -27,7 +27,8 @@ export class ProjectComponent implements OnInit {
     private _solutionService: SolutionService,
     private _endeavorService: EndeavorService,
     private _customerService: CustomerService,
-    private _route: ActivatedRoute
+    private _route: ActivatedRoute,
+    private _router: Router
   ) { }
 
   ngOnInit(): void {
@@ -38,7 +39,9 @@ export class ProjectComponent implements OnInit {
       this.projectId,
       this._solutionService,
       this._endeavorService,
-      this._customerService);
+      this._customerService,
+      this._router
+    );
   }
 
   public add_solution(): void {
@@ -48,7 +51,6 @@ export class ProjectComponent implements OnInit {
         result.project = this.projectId;
         this._solutionService.addSolution(result, this.projectId).subscribe(
           resulti => {
-            console.log(resulti);
             this.dataSource.addSolution(resulti);
           }
         );
@@ -63,7 +65,6 @@ export class ProjectComponent implements OnInit {
         result.project = this.projectId;
         this._endeavorService.addEndeavor(result, this.projectId).subscribe(
           resulti => {
-            console.log(resulti);
             this.dataSource.addEndeavor(resulti);
           }
         );
@@ -78,7 +79,6 @@ export class ProjectComponent implements OnInit {
         result.project = this.projectId;
         this._customerService.addCustomer(result, this.projectId).subscribe(
           resulti => {
-            console.log(resulti);
             this.dataSource.addCustomer(resulti);
           }
         );

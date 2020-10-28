@@ -1,6 +1,7 @@
 from django.conf.urls import url, include
 from . import views
 from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token
+from rest_framework_simplejwt import views as jwt_views
 
 urlpatterns = [
     url(r'^api/card$', views.card_list),

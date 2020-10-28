@@ -5,11 +5,11 @@ from rest_framework.decorators import api_view
 from essence.serializers import *
 from essence.models import Project
 
-#Project API views:
+# Project API views:
 @api_view(['GET', 'POST'])
 def project_list(request, pk):
     if request.method == 'GET':
-        projects = Project.objects.filter(user=pk)
+        projects = Project.objects.filter(user=request.user.id)
         projects_serializer = ProjectSerializer(projects, many=True)
         return JsonResponse(projects_serializer.data, safe=False)
     elif request.method == 'POST':

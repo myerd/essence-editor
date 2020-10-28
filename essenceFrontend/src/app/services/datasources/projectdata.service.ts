@@ -1,13 +1,12 @@
 import { Inject, Injectable } from '@angular/core';
-import { ProjectService } from '../http/project.service';
 import { SolutionService } from '../http/solution.service';
 import { EndeavorService } from '../http/endeavor.service';
 import { CustomerService } from '../http/customer.service';
-import { Project } from '../../models/project';
 import { Solution } from '../../models/solution';
 import { Customer } from '../../models/customer';
 import { Endeavor } from '../../models/endeavor';
 import { take } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -18,26 +17,35 @@ export class ProjectdataService {
   public _customer: Customer;
   public _endeavor: Endeavor;
 
-  constructor(@Inject(String)
-    private _projectId: string,
+  constructor(
+    @Inject(String) private _projectId: string,
     private _solutionService: SolutionService,
     private _endeavorService: EndeavorService,
-    private _customerService: CustomerService
+    private _customerService: CustomerService,
+    private _router: Router
   ) {
+
     this._solutionService.getSolution(this._projectId).pipe(take(1)).subscribe(
       result => {
         this._solution = result[0];
+      },
+      error => {
+        this._router.navigate(['']);
       });
     this._endeavorService.getEndeavor(this._projectId).pipe(take(1)).subscribe(
       result => {
-        console.log(result);
         this._endeavor = result[0];
+      },
+      error => {
+        this._router.navigate(['']);
       }
     );
     this._customerService.getCustomer(this._projectId).pipe(take(1)).subscribe(
       result => {
-        console.log(result);
         this._customer = result[0];
+      },
+      error => {
+        this._router.navigate(['']);
       }
     );
   }

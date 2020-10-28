@@ -6,17 +6,26 @@ from essence.serializers import *
 from essence.models import *
 
 
-#Solution API views:
+# Solution API views:
 @api_view(['GET', 'POST'])
 def solution_list(request, pk):
     if request.method == 'GET':
         try:
-            solutions = Solution.objects.filter(project=pk)
+            project = Project.objects.filter(user=request.user.id).filter(pk=pk)
         except:
-            return JsonResponse({'message': 'No solutions for this project exists'},
+            return JsonResponse({'message': 'No projects for this user'},
                                 status=status.HTTP_400_BAD_REQUEST)
-        solutions_serializer = SolutionSerializer(solutions, many=True)
-        return JsonResponse(solutions_serializer.data, safe=False)
+        if project:
+            try:
+                solutions = Solution.objects.filter(project=pk)
+            except:
+                return JsonResponse({'message': 'No solutions for this project exists'},
+                                    status=status.HTTP_400_BAD_REQUEST)
+            solutions_serializer = SolutionSerializer(solutions, many=True)
+            return JsonResponse(solutions_serializer.data, safe=False)
+        else:
+            return JsonResponse({'message': 'No projects for this user'},
+                                status=status.HTTP_400_BAD_REQUEST)
 
     elif request.method == 'POST':
         solution_data = JSONParser().parse(request)
@@ -43,6 +52,7 @@ def requirements(request, pk):
         if requirements_serializer.is_valid():
             requirements_serializer.save()
             return JsonResponse(requirements_serializer.data, status=status.HTTP_201_CREATED)
+
 
 @api_view(['GET'])
 def requirements_card_list(request, pk):
@@ -72,6 +82,7 @@ def softwaresystems(request, pk):
         if softwaresystems_serializer.is_valid():
             softwaresystems_serializer.save()
             return JsonResponse(softwaresystems_serializer.data, status=status.HTTP_201_CREATED)
+
 
 @api_view(['GET'])
 def softwaresystems_card_list(request, pk):

@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
-import { User } from '../models/User';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import * as moment from 'moment';
 import { shareReplay, tap } from 'rxjs/operators';
@@ -96,6 +95,9 @@ export class AuthService {
     return moment().isBefore(this.getExpiration());
   }
 
+  public isLoggedObserv() {
+    return this.isAuthenticated;
+  }
   public isLoggedOut() {
     return !this.isLoggedIn();
   }

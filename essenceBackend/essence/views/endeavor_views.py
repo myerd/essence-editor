@@ -5,17 +5,26 @@ from rest_framework.decorators import api_view
 from essence.serializers import *
 from essence.models import *
 
-#Endeavor API views:
+# Endeavor API views:
 @api_view(['GET', 'POST'])
 def endeavor_list(request, pk):
     if request.method == 'GET':
         try:
-            endeavor = Endeavor.objects.filter(project=pk)
+            project = Project.objects.filter(user=request.user.id).filter(pk=pk)
         except:
-            return JsonResponse({'message': 'No solutions for this project exists'},
+            return JsonResponse({'message': 'No projects for this user'},
                                 status=status.HTTP_400_BAD_REQUEST)
-        endeavor_serializer = EndeavorSerializer(endeavor, many=True)
-        return JsonResponse(endeavor_serializer.data, safe=False)
+        if project:
+            try:
+                endeavor = Endeavor.objects.filter(project=pk)
+            except:
+                return JsonResponse({'message': 'No solutions for this project exists'},
+                                     status=status.HTTP_400_BAD_REQUEST)
+            endeavor_serializer = EndeavorSerializer(endeavor, many=True)
+            return JsonResponse(endeavor_serializer.data, safe=False)
+        else:
+            return JsonResponse({'message': 'No projects for this user'},
+                                status=status.HTTP_400_BAD_REQUEST)
 
     elif request.method == 'POST':
         endeavor_data = JSONParser().parse(request)
@@ -25,7 +34,7 @@ def endeavor_list(request, pk):
             return JsonResponse(endeavor_serializer.data, status=status.HTTP_201_CREATED)
 
 
-#API views for TEAM objects:
+# API views for TEAM objects:
 @api_view(['GET', 'POST'])
 def team_list(request, pk):
     if request.method == 'GET':
@@ -54,7 +63,6 @@ def team_card_list(request, pk):
     if request.method == 'GET':
         cards_serializer = CardSerializer(cards, many=True)
         return JsonResponse(cards_serializer.data, safe=False)
-
 
 
 @api_view(['GET', 'POST'])

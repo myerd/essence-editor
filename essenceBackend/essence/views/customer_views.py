@@ -5,17 +5,26 @@ from rest_framework.decorators import api_view
 from essence.serializers import *
 from essence.models import *
 
-#Customer API views:
+# Customer API views:
 @api_view(['GET', 'POST'])
 def customer_list(request, pk):
     if request.method == 'GET':
         try:
-            customers = Customer.objects.filter(project=pk)
+            project = Project.objects.filter(user=request.user.id).filter(pk=pk)
         except:
-            return JsonResponse({'message': 'No solutions for this project exists'},
+            return JsonResponse({'message': 'No projects for this user'},
                                 status=status.HTTP_400_BAD_REQUEST)
-        customers_serializer = CustomerSerializer(customers, many=True)
-        return JsonResponse(customers_serializer.data, safe=False)
+        if project:
+            try:
+                customers = Customer.objects.filter(project=pk)
+            except:
+                return JsonResponse({'message': 'No solutions for this project exists'},
+                                    status=status.HTTP_400_BAD_REQUEST)
+            customers_serializer = CustomerSerializer(customers, many=True)
+            return JsonResponse(customers_serializer.data, safe=False)
+        else:
+            return JsonResponse({'message': 'No projects for this user'},
+                                status=status.HTTP_400_BAD_REQUEST)
 
     elif request.method == 'POST':
         customer_data = JSONParser().parse(request)

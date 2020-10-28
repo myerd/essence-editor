@@ -5,7 +5,7 @@ from rest_framework.decorators import api_view
 from essence.serializers import *
 from essence.models import Card
 
-#Views for CARD
+# Views for CARD
 @api_view(['GET', 'POST', 'DELETE'])
 def card_list(request):
     if request.method == 'GET':
@@ -31,6 +31,7 @@ def card_list(request):
         return JsonResponse({'message': '{} Cards were deleted successfully!'.format(count[0])},
                             status=status.HTTP_204_NO_CONTENT)
 
+
 @api_view(['GET', 'POST'])
 def card_data(request, pk):
     if request.method == 'GET':
@@ -51,7 +52,6 @@ def card_data(request, pk):
         return JsonResponse({'message': 'VITUIKS MENI'}, status=status.HTTP_400_BAD_REQUEST)
 
 
-
 @api_view(['PUT'])
 def card_data_update(request, pk2):
     try:
@@ -64,6 +64,7 @@ def card_data_update(request, pk2):
         card_serializer.save()
         return JsonResponse(card_serializer.data)
     return JsonResponse(card_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 @api_view(['GET', 'PUT', 'DELETE'])
 def card_detail(request, pk):
