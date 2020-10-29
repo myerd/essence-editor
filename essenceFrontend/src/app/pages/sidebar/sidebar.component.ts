@@ -39,17 +39,20 @@ export class SidebarComponent implements OnInit {
 
   public logout(): void {
     this._authService.logout();
+    this._router.navigate(['']);
   }
 
   public add_project(): void {
     const dialogRef = this._dialog.open(AddProjectDialogComponent);
     dialogRef.afterClosed().subscribe(result => {
-      const projectdata = { ...result, user: this._authService.getActiveUserId()};
-      this._projectService.addProject(projectdata, this._authService.getActiveUserId()).subscribe(
-        resulti => {
-          this._router.navigate(['/project/', resulti.id]);
-        }
-      );
+      if (result) {
+        const projectdata = {...result, user: this._authService.getActiveUserId()};
+        this._projectService.addProject(projectdata, this._authService.getActiveUserId()).subscribe(
+          resulti => {
+            this._router.navigate(['/project/', resulti.id]);
+          }
+        );
+      }
     });
   }
 }

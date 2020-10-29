@@ -1,14 +1,14 @@
-<div *ngIf="isloggedIn$ | async; else not_loggedIn">
+<div class="nav-content"  *ngIf="isloggedIn$ | async; else not_loggedIn">
   {{ _userName }} <br>
   <button mat-stroked-button (click)="logout()">LOGOUT</button> <br>
-  <a routerLink="/">MAIN</a>
-  <li  *ngFor="let project of projects">
-    <a [routerLink]="['/project/', project.id]"> {{ project.title }} </a>
-    <br> || {{ project.description}}
-  </li>
+  <div class="nav-content-buttons" *ngFor="let project of projects">
+    <button mat-flat-button class="nav-button" [routerLink]="['/project/', project.id]"> {{ project.title }} </button>
+  </div>
   <button mat-mini-fab (click)="add_project()">+</button>
 </div>
 <ng-template #not_loggedIn>
-  <a routerLink="/login"><button mat-stroked-button>Login</button></a>
-  <a routerLink="/signup"><button mat-stroked-button>Signup</button></a>
+  <div class="nav-content">
+    <button mat-stroked-button routerLink="/login">Login</button> <br>
+    <button mat-stroked-button routerLink="/signup">Signup</button>
+  </div>
 </ng-template>

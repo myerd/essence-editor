@@ -44,6 +44,7 @@ import { MatCardModule } from '@angular/material/card';
 import { SignupComponent } from './pages/signup/signup.component';
 import { AuthGuard, AuthInterceptor, AuthService } from './services/auth.service';
 import { LoginComponent } from './pages/login/login.component';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -76,7 +77,8 @@ import { LoginComponent } from './pages/login/login.component';
     OpportunityComponent,
     AddCarddataDialogComponent,
     SignupComponent,
-    LoginComponent
+    LoginComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,

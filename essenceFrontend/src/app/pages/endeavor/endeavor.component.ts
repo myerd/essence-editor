@@ -96,12 +96,14 @@ export class EndeavorComponent implements OnInit, OnChanges {
   public addWoW(): void {
     const dialogRef = this._dialog.open(AddWayofworkDialogComponent);
     dialogRef.afterClosed().subscribe(result => {
-      result.endeavor = this.endeavor.id;
-      this._wayofworkService.addWayofwork(result, this.endeavor.id).subscribe(
-        resulti => {
-          this.dataSource.addWow(resulti);
-        }
-      );
+      if (result) {
+        result.endeavor = this.endeavor.id;
+        this._wayofworkService.addWayofwork(result, this.endeavor.id).subscribe(
+          resulti => {
+            this.dataSource.addWow(resulti);
+          }
+        );
+      }
     });
   }
 

@@ -29,12 +29,14 @@ export class ProjectComponent implements OnInit {
     private _customerService: CustomerService,
     private _route: ActivatedRoute,
     private _router: Router
-  ) { }
-
-  ngOnInit(): void {
+  ) {
+    this._router.routeReuseStrategy.shouldReuseRoute = () => false;
     this._route.params.subscribe((params) => {
       this.projectId = params['id'];
     });
+  }
+
+  ngOnInit(): void {
     this.dataSource = new ProjectdataService(
       this.projectId,
       this._solutionService,

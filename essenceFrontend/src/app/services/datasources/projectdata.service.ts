@@ -24,30 +24,7 @@ export class ProjectdataService {
     private _customerService: CustomerService,
     private _router: Router
   ) {
-
-    this._solutionService.getSolution(this._projectId).pipe(take(1)).subscribe(
-      result => {
-        this._solution = result[0];
-      },
-      error => {
-        this._router.navigate(['']);
-      });
-    this._endeavorService.getEndeavor(this._projectId).pipe(take(1)).subscribe(
-      result => {
-        this._endeavor = result[0];
-      },
-      error => {
-        this._router.navigate(['']);
-      }
-    );
-    this._customerService.getCustomer(this._projectId).pipe(take(1)).subscribe(
-      result => {
-        this._customer = result[0];
-      },
-      error => {
-        this._router.navigate(['']);
-      }
-    );
+    this.updateData(this._projectId);
   }
 
   public addCustomer(customer: Customer): void {
@@ -60,5 +37,31 @@ export class ProjectdataService {
 
   public addEndeavor(endeavor: Endeavor): void {
     this._endeavor = endeavor;
+  }
+
+  public updateData(projId: string): void {
+    this._solutionService.getSolution(projId).pipe(take(1)).subscribe(
+      result => {
+        this._solution = result[0];
+      },
+      error => {
+        this._router.navigate(['']);
+      });
+    this._endeavorService.getEndeavor(projId).pipe(take(1)).subscribe(
+      result => {
+        this._endeavor = result[0];
+      },
+      error => {
+        this._router.navigate(['']);
+      }
+    );
+    this._customerService.getCustomer(projId).pipe(take(1)).subscribe(
+      result => {
+        this._customer = result[0];
+      },
+      error => {
+        this._router.navigate(['']);
+      }
+    );
   }
 }

@@ -37,12 +37,14 @@ export class OpportunityComponent implements OnInit, OnChanges {
   public add_card(): void {
     const dialogRef = this._dialog.open(AddCardDialogComponent);
     dialogRef.afterClosed().subscribe(result => {
-      result.opportunity = this.oppo.id;
-      this._cardService.addCard(result).subscribe(
-        resulti => {
-          this.dataSource.addCard(resulti);
-        }
-      );
+      if (result) {
+        result.opportunity = this.oppo.id;
+        this._cardService.addCard(result).subscribe(
+          resulti => {
+            this.dataSource.addCard(resulti);
+          }
+        );
+      }
     });
   }
 }

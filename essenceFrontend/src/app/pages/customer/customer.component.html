@@ -10,7 +10,7 @@
   <button class="hide" mat-stroked-button (click)="hideCards()">
     Hide Cards
   </button>
-    <div *ngIf="opportunity && !stakeholders">
+    <div *ngIf="opportunity && !stakeholders" class="customer-content">
     <div *ngIf="dataSource.opportunity !== undefined; else no_opportunity">
         <p>{{ dataSource.opportunity.description }}</p><br>
       <app-opportunity [oppo]="dataSource.opportunity">
@@ -20,7 +20,7 @@
   <ng-template #no_opportunity>No Opportunity added for this Customer
     <button mat-stroked-button (click)="addOpportunity()">+Opportunity</button>
   </ng-template>
-  <div *ngIf="stakeholders && !opportunity">
+  <div *ngIf="stakeholders && !opportunity" class="customer-content">
     <div *ngIf="dataSource.stakeholders !== undefined; else no_stakeholders">
         <p>{{ dataSource.stakeholders.description }}</p><br>
       <app-stakeholders [stake]="dataSource.stakeholders">
