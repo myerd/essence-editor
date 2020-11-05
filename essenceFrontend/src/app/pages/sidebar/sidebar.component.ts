@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ProjectService } from '../../services/http/project.service';
-import { Project } from '../../models/project';
-import { take } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
 import { AddProjectDialogComponent } from '../../dialogs/add-project-dialog/add-project-dialog.component';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { ListdataService } from '../../services/datasources/listdata.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -15,10 +14,8 @@ import { Observable } from 'rxjs';
 })
 export class SidebarComponent implements OnInit {
 
-  public _userName;
+  public dataSource: ListdataService;
   public isloggedIn$: Observable<boolean> = this._authService.isLoggedObserv();
-  public _authenticated;
-  public projects: Project[] = [];
   constructor(
     private _authService: AuthService,
     private _dialog: MatDialog,
@@ -27,12 +24,13 @@ export class SidebarComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this._authenticated = this._authService.isAuthenticated.subscribe(res => {
+    this._authService.isAuthenticated.subscribe(res => {
       if (res) {
-        this._projectService.getProjects(this._authService.getActiveUserId()).pipe(take(1)).subscribe(result => {
-          this.projects = result;
-        } );
-        this._userName = this._authService.getActiveUser();
+        this.dataSource = new ListdataService(
+          this._authService.getActiveUser(),
+          this._authService,
+          this._projectService
+        );
       }
     });
   }
@@ -50,6 +48,7 @@ export class SidebarComponent implements OnInit {
         this._projectService.addProject(projectdata, this._authService.getActiveUserId()).subscribe(
           resulti => {
             this._router.navigate(['/project/', resulti.id]);
+            this.dataSource.addProject(resulti);
           }
         );
       }

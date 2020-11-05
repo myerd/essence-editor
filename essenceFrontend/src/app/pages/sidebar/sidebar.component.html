@@ -1,7 +1,7 @@
 <div class="nav-content"  *ngIf="isloggedIn$ | async; else not_loggedIn">
-  {{ _userName }} <br>
+  {{ dataSource.userName }} <br>
   <button mat-stroked-button (click)="logout()">LOGOUT</button> <br>
-  <div class="nav-content-buttons" *ngFor="let project of projects">
+  <div class="nav-content-buttons" *ngFor="let project of dataSource.projects">
     <button mat-flat-button class="nav-button" [routerLink]="['/project/', project.id]"> {{ project.title }} </button>
   </div>
   <button mat-mini-fab (click)="add_project()">+</button>
