@@ -3,10 +3,8 @@ import { Solution } from '../../models/solution';
 import { SolutionService } from '../../services/http/solution.service';
 import { ActivatedRoute } from '@angular/router';
 import { RequirementsService } from '../../services/http/requirements.service';
-import { Requirements } from '../../models/requirements';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { AddRequirementsDialogComponent } from '../../dialogs/add-requirements-dialog/add-requirements-dialog.component';
-import { Softwaresystems } from '../../models/softwaresystems';
 import { SoftwaresystemsService } from '../../services/http/softwaresystems.service';
 import { AddSoftwaresystemsDialogComponent } from '../../dialogs/add-softwaresystems-dialog/add-softwaresystems-dialog.component';
 import { SolutiondataService } from '../../services/datasources/solutiondata.service';
@@ -18,9 +16,8 @@ import { SolutiondataService } from '../../services/datasources/solutiondata.ser
 })
 export class SolutionComponent implements OnInit, OnChanges {
 
+  public solu = false;
   @Input() solution: Solution;
-  public requirements = false;
-  public softwaresystems = false;
   public dataSource: SolutiondataService;
 
   constructor(
@@ -42,11 +39,6 @@ export class SolutionComponent implements OnInit, OnChanges {
   public ngOnChanges(changes: SimpleChanges): void {
   }
 
-  public showRequirements() {
-    this.requirements = true;
-    this.softwaresystems = false;
-  }
-
   public addRequirements(): void {
     const dialogRef = this._dialog.open(AddRequirementsDialogComponent);
     dialogRef.afterClosed().subscribe(result => {
@@ -59,12 +51,6 @@ export class SolutionComponent implements OnInit, OnChanges {
         );
       }
     });
-  }
-
-  public showSoftwaresystems() {
-    this.requirements = false;
-    this.softwaresystems = true;
-
   }
 
   public addSoftwaresystems(): void {
@@ -81,8 +67,4 @@ export class SolutionComponent implements OnInit, OnChanges {
     });
   }
 
-  public hideCards() {
-    this.requirements = false;
-    this.softwaresystems = false;
-  }
 }

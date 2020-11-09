@@ -6,6 +6,7 @@ import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { ListdataService } from '../../services/datasources/listdata.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-sidebar',
@@ -20,8 +21,11 @@ export class SidebarComponent implements OnInit {
     private _authService: AuthService,
     private _dialog: MatDialog,
     private _projectService: ProjectService,
-    private _router: Router
-  ) { }
+    private _router: Router,
+    private _titleService: Title
+  ) {
+    this._titleService.setTitle('SEMAT Essence Editor');
+  }
 
   ngOnInit(): void {
     this._authService.isAuthenticated.subscribe(res => {

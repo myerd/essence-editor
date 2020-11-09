@@ -1,14 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { AddOpportunityDialogComponent } from '../../dialogs/add-opportunity-dialog/add-opportunity-dialog.component';
 import { OpportunityService } from '../../services/http/opportunity.service';
 import { CustomerService } from '../../services/http/customer.service';
 import { StakeholdersService } from '../../services/http/stakeholders.service';
-import { Stakeholders } from '../../models/stakeholders';
-import { Opportunity } from '../../models/opportunity';
 import { Customer } from '../../models/customer';
 import { AddStakeholdersDialogComponent } from '../../dialogs/add-stakeholders-dialog/add-stakeholders-dialog.component';
-import { take } from 'rxjs/operators';
 import { CustomerdataService } from '../../services/datasources/customerdata.service';
 
 @Component({
@@ -19,8 +16,7 @@ import { CustomerdataService } from '../../services/datasources/customerdata.ser
 export class CustomerComponent implements OnInit {
 
   @Input() customer: Customer;
-  public opportunity;
-  public stakeholders;
+  public cust = false;
   public dataSource: CustomerdataService;
 
   constructor(
@@ -38,11 +34,6 @@ export class CustomerComponent implements OnInit {
     );
   }
 
-  public showOpportunity() {
-    this.opportunity = true;
-    this.stakeholders = false;
-  }
-
   public addOpportunity(): void {
     const dialogRef = this._dialog.open(AddOpportunityDialogComponent);
     dialogRef.afterClosed().subscribe(result => {
@@ -57,11 +48,6 @@ export class CustomerComponent implements OnInit {
     });
   }
 
-  public showStakeholders() {
-    this.opportunity = false;
-    this.stakeholders = true;
-  }
-
   public addStakeholders(): void {
     const dialogRef = this._dialog.open(AddStakeholdersDialogComponent);
     dialogRef.afterClosed().subscribe(result => {
@@ -74,10 +60,5 @@ export class CustomerComponent implements OnInit {
         );
       }
     });
-  }
-
-  public hideCards() {
-    this.opportunity = false;
-    this.stakeholders = false;
   }
 }

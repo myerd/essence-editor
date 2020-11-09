@@ -1,19 +1,10 @@
 <div class="endeavor">
-  <h1>Endeavor</h1>
+  <a role="button" (click)="endea = !endea" class="link"> <h1>Endeavor</h1></a>
     {{ endeavor.description }} <br>
-    <button mat-stroked-button (click)="showWork()">
-      Work
-    </button>
-    <button mat-stroked-button (click)="showTeam()">
-      Team
-    </button>
-    <button mat-stroked-button (click)="showWoW()">
-      Way of Work
-    </button>
-    <button class="hide" mat-stroked-button (click)="hideCards()">
-      Hide Cards
-    </button>
-    <div *ngIf="team && !work && !wayofwork" class="endeavor-content">
+<div *ngIf="endea" class="grid-container-endeavor">
+  <div class="team">
+    <div class="endeavor-content">
+      <p>Team</p>
       <div *ngIf="dataSource.team !== undefined; else no_team">
           <p>{{ dataSource.team.description }}</p><br>
           <app-team [team]="dataSource.team">
@@ -23,7 +14,9 @@
     <ng-template #no_team>No Team added for this Endeavor
       <button mat-stroked-button (click)="addTeam()">+Team</button>
     </ng-template>
-    <div *ngIf="work && !team && !wayofwork" class="endeavor-content">
+  </div>
+  <div class="work">
+    <div class="endeavor-content">
       <div *ngIf="dataSource.work !== undefined; else no_work">
           <p>{{ dataSource.work.description }}</p><br>
         <app-work [work]="dataSource.work">
@@ -33,7 +26,9 @@
     <ng-template #no_work>No work added for this Endeavor
       <button mat-stroked-button (click)="addWork()">+Work</button>
     </ng-template>
-  <div *ngIf="wayofwork && !team && !work" class="endeavor-content">
+  </div>
+  <div class="wow">
+  <div class="endeavor-content">
     <div *ngIf="dataSource.wayofwork !== undefined; else no_wow">
         <p>{{ dataSource.wayofwork.description }}</p><br>
       <app-wayofwork [wow]="dataSource.wayofwork">
@@ -43,4 +38,6 @@
   <ng-template #no_wow>No wayofwork added for this Endeavor
     <button mat-stroked-button (click)="addWoW()">+WayofWork</button>
   </ng-template>
+  </div>
+</div>
 </div>

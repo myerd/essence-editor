@@ -9,7 +9,7 @@
   display: grid;
   grid-template-areas:
     'header header header header header header'
-    'left middle middle middle middle right'
+    'left middle middle middle middle middle'
     'footer footer footer footer footer footer';
   grid-gap: 1px;
   background-color: #332f35;
@@ -65,3 +65,4 @@ body {
   font-family: Arial;
   background-color: #332f35;
 }
+

@@ -1,34 +1,35 @@
 <div class="solution">
-  <h1>Solution</h1>
+  <a role="button" (click)="solu = !solu" class="link"> <h1>Solution</h1></a>
   {{ solution.description }} <br>
-  <button mat-stroked-button (click)="showRequirements()">
-    Requirements
-  </button>
-  <button mat-stroked-button (click)="showSoftwaresystems()">
-    Software System
-  </button>
-  <button class="hide" mat-stroked-button (click)="hideCards()">
-    Hide Cards
-  </button>
-  <div *ngIf="requirements && !softwaresystems" class="solution-content">
-    <div *ngIf="dataSource.requirements !== undefined; else no_requirements">
+  <div *ngIf="solu" class="grid-container-solution">
+    <div class="req">
+
+      <div class="solution-content">
+        <p>Requirements</p>
+        <div *ngIf="dataSource.requirements !== undefined; else no_requirements">
           <p>{{ dataSource.requirements.description }}</p>
-      <app-requirements [req]="dataSource.requirements">
-      </app-requirements>
+          <app-requirements [req]="dataSource.requirements">
+          </app-requirements>
+        </div>
+      </div>
+      <ng-template #no_requirements>No requirements added for this Solution
+        <button mat-stroked-button (click)="addRequirements()">+Requirements</button>
+      </ng-template>
+    </div>
+    <div class="sos">
+
+      <div class="solution-content">
+        <p>Softwaresystems</p>
+        <div *ngIf="dataSource.softwaresystems !== undefined; else no_softwaresys">
+          <p>{{ dataSource.softwaresystems.description }}</p>
+          <app-softwaresystem [sys]="dataSource.softwaresystems">
+          </app-softwaresystem>
+        </div>
+      </div>
+      <ng-template #no_softwaresys>No softwaresystems added for this Solution
+        <button mat-stroked-button (click)="addSoftwaresystems()">+Softwaresystems</button>
+      </ng-template>
     </div>
   </div>
-  <ng-template #no_requirements>No requirements added for this Solution
-    <button mat-stroked-button (click)="addRequirements()">+Requirements</button>
-  </ng-template>
-  <div *ngIf="softwaresystems && !requirements" class="solution-content">
-    <div *ngIf="dataSource.softwaresystems !== undefined; else no_softwaresys">
-      <p>{{ dataSource.softwaresystems.description }}</p>
-     <app-softwaresystem [sys]="dataSource.softwaresystems">
-     </app-softwaresystem>
-    </div>
-  </div>
-  <ng-template #no_softwaresys>No softwaresystems added for this Solution
-    <button mat-stroked-button (click)="addSoftwaresystems()">+Softwaresystems</button>
-  </ng-template>
 </div>
 

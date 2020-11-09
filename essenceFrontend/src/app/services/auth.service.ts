@@ -6,7 +6,6 @@ import { shareReplay, tap } from 'rxjs/operators';
 import { Observable, ReplaySubject } from 'rxjs';
 import { CanActivate, Router } from '@angular/router';
 
-
 @Injectable({
   providedIn: 'root'
 })

@@ -9,14 +9,14 @@ import { Card } from '../../models/card';
   styleUrls: ['./add-card-dialog.component.scss']
 })
 export class AddCardDialogComponent implements OnInit {
+
   public form: FormGroup;
   public card: Card;
 
   public constructor(
     private _fb: FormBuilder,
     private _dialogRef: MatDialogRef<AddCardDialogComponent>
-  )
-  {}
+  ) {}
 
   public ngOnInit(): void {
     this.form = this._fb.group({
@@ -35,15 +35,8 @@ export class AddCardDialogComponent implements OnInit {
 
   public save(): void {
     const cardtoAdd: Card = this.form.value as Card;
-    //editedRink.id = this.originalRink.id;
-    const forDeleting: boolean = false;
     this._dialogRef.close(cardtoAdd);
   }
-
-  /*public delete(): void {
-    const forDeleting: boolean = true;
-    this._dialogRef.close();
-  }*/
 
   public close(): void {
     this._dialogRef.close();

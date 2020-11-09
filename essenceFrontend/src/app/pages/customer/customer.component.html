@@ -1,16 +1,9 @@
 <div class="customer">
-  <h1>Customer</h1>
+  <a role="button" (click)="cust = !cust" class="link"> <h1>Customer</h1></a>
     {{ customer.description }} <br>
-  <button mat-stroked-button (click)="showOpportunity()">
-    Opportunity
-  </button>
-  <button mat-stroked-button (click)="showStakeholders()">
-    Stakeholders
-  </button>
-  <button class="hide" mat-stroked-button (click)="hideCards()">
-    Hide Cards
-  </button>
-    <div *ngIf="opportunity && !stakeholders" class="customer-content">
+<div *ngIf="cust" class="grid-container-customer">
+  <div class="oppo">
+    <div class="customer-content">
     <div *ngIf="dataSource.opportunity !== undefined; else no_opportunity">
         <p>{{ dataSource.opportunity.description }}</p><br>
       <app-opportunity [oppo]="dataSource.opportunity">
@@ -20,7 +13,9 @@
   <ng-template #no_opportunity>No Opportunity added for this Customer
     <button mat-stroked-button (click)="addOpportunity()">+Opportunity</button>
   </ng-template>
-  <div *ngIf="stakeholders && !opportunity" class="customer-content">
+</div>
+  <div class="stake">
+  <div class="customer-content">
     <div *ngIf="dataSource.stakeholders !== undefined; else no_stakeholders">
         <p>{{ dataSource.stakeholders.description }}</p><br>
       <app-stakeholders [stake]="dataSource.stakeholders">
@@ -30,4 +25,6 @@
   <ng-template #no_stakeholders>No stakeholders added for this Customer
     <button mat-stroked-button (click)="addStakeholders()">+Stakeholders</button>
   </ng-template>
+  </div>
+</div>
 </div>

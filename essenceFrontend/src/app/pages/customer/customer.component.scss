@@ -1,3 +1,26 @@
 .customer-content {
   border: 2px solid black;
 }
+
+.grid-container-customer {
+  display: grid;
+  grid-template-areas:
+    'oppo stake'
+    'oppo stake'
+    'oppo stake';
+  grid-gap: 1px;
+  background-color: #aaff07;
+  padding: 1px;
+}
+
+.oppo {
+  grid-area: oppo;
+}
+
+.stake {
+  grid-area: stake;
+}
+
+.link {
+  cursor: pointer;
+}

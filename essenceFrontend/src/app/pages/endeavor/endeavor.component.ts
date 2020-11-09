@@ -17,11 +17,8 @@ import { EndeavordataService } from '../../services/datasources/endeavordata.ser
 })
 export class EndeavorComponent implements OnInit, OnChanges {
 
+  public endea = false;
   @Input() endeavor: Endeavor;;
-  public team;
-  public work;
-  public wayofwork;
-  public hide;
   public dataSource: EndeavordataService;
 
   constructor(
@@ -44,13 +41,6 @@ export class EndeavorComponent implements OnInit, OnChanges {
   public ngOnChanges(changes: SimpleChanges): void {
   }
 
-  public showWork() {
-    this.hide = true;
-    this.work = true;
-    this.team = false;
-    this.wayofwork = false;
-  }
-
   public addWork(): void {
     const dialogRef = this._dialog.open(AddWorkDialogComponent);
     dialogRef.afterClosed().subscribe(result => {
@@ -63,13 +53,6 @@ export class EndeavorComponent implements OnInit, OnChanges {
         );
       }
     });
-  }
-
-  public showTeam() {
-    this.hide = true;
-    this.work = false;
-    this.team = true;
-    this.wayofwork = false;
   }
 
   public addTeam(): void {
@@ -86,13 +69,6 @@ export class EndeavorComponent implements OnInit, OnChanges {
     });
   }
 
-  public showWoW() {
-    this.hide = true;
-    this.work = false;
-    this.team = false;
-    this.wayofwork = true;
-  }
-
   public addWoW(): void {
     const dialogRef = this._dialog.open(AddWayofworkDialogComponent);
     dialogRef.afterClosed().subscribe(result => {
@@ -107,10 +83,4 @@ export class EndeavorComponent implements OnInit, OnChanges {
     });
   }
 
-  public hideCards() {
-    this.hide = false;
-    this.work = false;
-    this.team = false;
-    this.wayofwork = false;
-  }
 }
