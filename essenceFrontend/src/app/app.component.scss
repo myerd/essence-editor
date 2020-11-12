@@ -15,6 +15,7 @@
   background-color: #332f35;
   padding: 1px;
   grid-template-rows: 10% auto 150px;
+  grid-template-columns: 200px auto;
 }
 .header {
   grid-area: header;
@@ -24,41 +25,20 @@
 .middle {
   grid-area: middle;
   background-color: #332f35;
-  //width: 70%;
-  //float: top;
 }
 .left {
   background-color: #332f35;
   grid-area: left;
-  //width: 15%;
-  //float: left;
-  //padding-bottom: 1px;
 }
 
 .right {
   grid-area: right;
-  //float: left;
   background-color: #332f35;
-  //width: 15%;
-  //padding-bottom: 1px;
 }
 .footer {
   grid-area: footer;
   text-align: center;
   background-color: #332f35;
-}
-// Content
-.customer {
-  height: 30%;
-  background-color: #aaff07;
-}
-.endeavor {
-  height: 30%;
-  background-color: #dc9fff;
-}
-.solution {
-  height: 30%;
-  background-color: #fcff93;
 }
 
 body {

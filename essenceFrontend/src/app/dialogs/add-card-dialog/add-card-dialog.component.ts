@@ -33,6 +33,10 @@ export class AddCardDialogComponent implements OnInit {
     });
   }
 
+  public get f() {
+    return this.form.controls;
+  }
+
   public save(): void {
     const cardtoAdd: Card = this.form.value as Card;
     this._dialogRef.close(cardtoAdd);

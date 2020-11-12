@@ -1,12 +1,12 @@
 <div class="solution">
   <a role="button" (click)="solu = !solu" class="link"> <h1>Solution</h1></a>
   {{ solution.description }} <br>
+  <p>Click "Solution" to show / hide content</p>
   <div *ngIf="solu" class="grid-container-solution">
     <div class="req">
-
       <div class="solution-content">
-        <p>Requirements</p>
         <div *ngIf="dataSource.requirements !== undefined; else no_requirements">
+          <p>Requirements</p>
           <p>{{ dataSource.requirements.description }}</p>
           <app-requirements [req]="dataSource.requirements">
           </app-requirements>
@@ -17,10 +17,9 @@
       </ng-template>
     </div>
     <div class="sos">
-
       <div class="solution-content">
-        <p>Softwaresystems</p>
         <div *ngIf="dataSource.softwaresystems !== undefined; else no_softwaresys">
+          <p>Softwaresystems</p>
           <p>{{ dataSource.softwaresystems.description }}</p>
           <app-softwaresystem [sys]="dataSource.softwaresystems">
           </app-softwaresystem>

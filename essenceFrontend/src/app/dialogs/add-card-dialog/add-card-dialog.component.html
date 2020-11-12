@@ -1,11 +1,17 @@
+<div class="dialog">
 <h3 mat-dialog-title>add Card</h3>
-
+  <div *ngIf="form.invalid">
+    <p>Both fields are <strong>required</strong></p>
+  </div>
 <mat-dialog-content [formGroup]="form">
   <mat-form-field>
     <input matInput
            placeholder="title"
            formControlName="title"
            value="title">
+    <mat-error *ngIf="f.title.hasError('required')">
+     Title <strong>required</strong>
+    </mat-error>
   </mat-form-field>
   <br>
   <mat-form-field>
@@ -13,6 +19,9 @@
            placeholder="Description"
            formControlName="description"
            value="description">
+    <mat-error *ngIf="f.description.hasError('required')">
+      Title <strong>required</strong>
+    </mat-error>
   </mat-form-field>
 </mat-dialog-content>
 <mat-dialog-actions>
@@ -25,6 +34,4 @@
     Save
   </button>
 </mat-dialog-actions>
-<div *ngIf="form.invalid">
-  <p>Both Fields are needed!</p>
 </div>

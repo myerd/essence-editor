@@ -1,6 +1,6 @@
 <div *ngIf="dataSource.cards !== undefined; else other_content">
-  <div class="content" fxLayout="row wrap" fxLayoutAlign="start start" fxLayoutGap="16px grid">
-    <div fxFlex="33%" fxFlex.xs="100%" fxFlex.sm="33%" *ngFor="let card of dataSource.cards" fxFlexFill>
+  <div class="content" fxLayout="row wrap" fxLayoutAlign="start start" fxLayoutGap="8px grid">
+    <div class="flex" *ngFor="let card of dataSource.cards">
       <app-card [card]="card" [color]="'endeavor-card'">
       </app-card>
     </div>

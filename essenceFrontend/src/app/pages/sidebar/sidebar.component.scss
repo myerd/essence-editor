@@ -8,12 +8,25 @@
 .mat-stroked-button {
   background-color: #a295a8;
   color: #2d2e24;
+  width: 75px;
+  text-align: left;
+  padding-right: 100px;
+  border-radius: 10px 10px 10px 10px;
 }
 
 .nav-button {
   color: #a295a8;
   background-color: #674a79;
-  margin: 5px;
+  margin: 1px;
+  width: 64px;
+  text-align: left;
+  padding-right: 80px;
+  border-radius: 2px 2px 2px 2px;
+}
+
+.nav-button:hover {
+  background-color: white;
+  color: black;
 }
 
 .nav-content {
@@ -23,12 +36,19 @@
 
 .nav-content-buttons {
   position: relative;
-  padding-left: 30px;
-  margin: 5px;
-  border-left: 3px solid #a295a8;
+  padding-left: 20px;
+  margin: 1px;
+  border-left: 1px solid #a295a8;
+  width: 50px;
+  text-align: left;
 }
 
-.log {
-  position: relative;
-  padding-left: 10px;
+.addProject-button {
+  color: lightgreen;
+  background-color: darkslategrey;
+}
+
+.addProject-button:hover {
+  background-color: white;
+  color: black;
 }

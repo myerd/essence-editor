@@ -4,7 +4,7 @@
   width: 100%;
   height: 100%;
   color: #332f35;
-
+  min-width: 200px;
 }
 .card:hover {
   border: 2px solid #6b6b6e;
@@ -53,4 +53,12 @@
   background-color: #8c8e4f;
   color: #27252b;
   text-align: center;
+}
+
+.green {
+  background-color: #00ff02;
+}
+
+.red {
+  background-color: #ff171d;
 }

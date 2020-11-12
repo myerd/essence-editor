@@ -5,12 +5,11 @@
 .grid-container-customer {
   display: grid;
   grid-template-areas:
-    'oppo stake'
-    'oppo stake'
     'oppo stake';
   grid-gap: 1px;
-  background-color: #aaff07;
+  background-color: #76ca76;
   padding: 1px;
+  grid-template-columns: 50% 50%;
 }
 
 .oppo {
@@ -23,4 +22,8 @@
 
 .link {
   cursor: pointer;
+}
+
+.p {
+  color: #674a79;
 }

@@ -1,10 +1,12 @@
 <div class="customer">
   <a role="button" (click)="cust = !cust" class="link"> <h1>Customer</h1></a>
-    {{ customer.description }} <br>
+  {{ customer.description }} <br>
+  <p>Click "Customer" to show / hide content</p>
 <div *ngIf="cust" class="grid-container-customer">
   <div class="oppo">
     <div class="customer-content">
     <div *ngIf="dataSource.opportunity !== undefined; else no_opportunity">
+        <p>Opportunity</p>
         <p>{{ dataSource.opportunity.description }}</p><br>
       <app-opportunity [oppo]="dataSource.opportunity">
       </app-opportunity>
@@ -17,6 +19,7 @@
   <div class="stake">
   <div class="customer-content">
     <div *ngIf="dataSource.stakeholders !== undefined; else no_stakeholders">
+        <p>Stakeholders</p>
         <p>{{ dataSource.stakeholders.description }}</p><br>
       <app-stakeholders [stake]="dataSource.stakeholders">
       </app-stakeholders>

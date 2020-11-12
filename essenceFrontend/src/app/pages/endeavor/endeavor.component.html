@@ -1,14 +1,15 @@
 <div class="endeavor">
   <a role="button" (click)="endea = !endea" class="link"> <h1>Endeavor</h1></a>
     {{ endeavor.description }} <br>
+  <p>Click "Endeavor" to show / hide content</p>
 <div *ngIf="endea" class="grid-container-endeavor">
   <div class="team">
     <div class="endeavor-content">
-      <p>Team</p>
       <div *ngIf="dataSource.team !== undefined; else no_team">
-          <p>{{ dataSource.team.description }}</p><br>
-          <app-team [team]="dataSource.team">
-          </app-team>
+        <p>Team</p>
+        <p>{{ dataSource.team.description }}</p><br>
+        <app-team [team]="dataSource.team">
+        </app-team>
       </div>
     </div>
     <ng-template #no_team>No Team added for this Endeavor
@@ -18,7 +19,8 @@
   <div class="work">
     <div class="endeavor-content">
       <div *ngIf="dataSource.work !== undefined; else no_work">
-          <p>{{ dataSource.work.description }}</p><br>
+        <p>Work</p>
+        <p>{{ dataSource.work.description }}</p><br>
         <app-work [work]="dataSource.work">
         </app-work>
       </div>
@@ -30,7 +32,8 @@
   <div class="wow">
   <div class="endeavor-content">
     <div *ngIf="dataSource.wayofwork !== undefined; else no_wow">
-        <p>{{ dataSource.wayofwork.description }}</p><br>
+      <p>Way of Work</p>
+      <p>{{ dataSource.wayofwork.description }}</p><br>
       <app-wayofwork [wow]="dataSource.wayofwork">
       </app-wayofwork>
     </div>

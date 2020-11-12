@@ -8,9 +8,11 @@
         {{ card.description }}
       </p>
       <div *ngFor="let data of dataSource.cardData">
+        <div [ngClass]="data.completed ? 'green' : 'red'">
         <input type="checkbox" [checked]="data.completed" [disabled]="!isEditing"
                (click)="setCheckbox($event,data)">
         {{ data.task }}
+        </div>
       </div>
       <div *ngIf="isEditing === true; else not_editing">
         <button mat-stroked-button (click)="save_card_task()">Save</button>

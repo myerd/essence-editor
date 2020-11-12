@@ -1,14 +1,14 @@
 <div class="nav-content"  *ngIf="isloggedIn$ | async; else not_loggedIn">
   {{ dataSource.userName }} <br>
-  <button mat-stroked-button (click)="logout()">LOGOUT</button> <br>
+  <button mat-stroked-button (click)="logout()">Logout</button> <br>
   <div class="nav-content-buttons" *ngFor="let project of dataSource.projects">
     <button mat-flat-button class="nav-button" [routerLink]="['/project/', project.id]"> {{ project.title }} </button>
   </div>
-  <button mat-mini-fab (click)="add_project()">+</button>
+  <button mat-mini-fab class="addProject-button" (click)="add_project()">+</button>
 </div>
 <ng-template #not_loggedIn>
   <div class="nav-content">
     <button mat-stroked-button routerLink="/login">Login</button> <br>
-    <button mat-stroked-button routerLink="/signup">Signup</button>
+    <button mat-stroked-button routerLink="/signup">Register</button>
   </div>
 </ng-template>
