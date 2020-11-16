@@ -2,9 +2,10 @@ import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/cor
 import { CardService } from '../../services/http/card.service';
 import { Card } from '../../models/card';
 import { Cardattribute } from '../../models/cardattribute';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { AddCarddataDialogComponent } from '../../dialogs/add-carddata-dialog/add-carddata-dialog.component';
 import { CarddataService } from '../../services/datasources/carddata.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -23,6 +24,7 @@ export class CardComponent implements OnInit, OnChanges {
   constructor(
     private cardService: CardService,
     private _dialog: MatDialog,
+    private _router: Router
     ) { }
 
   ngOnInit(): void {
@@ -61,9 +63,7 @@ export class CardComponent implements OnInit, OnChanges {
   }
 
   public deleteCard(id): void {
-    this.cardService.deleteCard(id).subscribe(result => {
-      console.log(result);
-    });
+    this.cardService.deleteCard(id);
   }
   public edit() {
     this.isEditing = true;

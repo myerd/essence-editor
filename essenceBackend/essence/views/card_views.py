@@ -49,7 +49,7 @@ def card_data(request, pk):
         if card_serializer.is_valid():
             card_serializer.save()
             return JsonResponse(card_serializer.data, status=status.HTTP_201_CREATED)
-        return JsonResponse({'message': 'VITUIKS MENI'}, status=status.HTTP_400_BAD_REQUEST)
+        return JsonResponse({'message': 'BAD REQUEST'}, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['PUT'])

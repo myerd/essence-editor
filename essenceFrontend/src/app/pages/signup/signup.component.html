@@ -7,6 +7,9 @@
 <input mat-input #email type='text' placeholder='email'>
 <input mat-input #password1 type='password' placeholder='password1'>
 <input mat-input #password2 type='password' placeholder='password2'>
-<button mat-stroked-button (click)="signup(username.value, email.value, password1.value, password2.value)">Signup</button>
+<button mat-stroked-button
+        (click)="signup(username.value, email.value, password1.value, password2.value)">
+  Register
+</button>
 <p>{{ error?.message }}</p>
 <p *ngIf="error">{{ error?.error | json }}</p>
