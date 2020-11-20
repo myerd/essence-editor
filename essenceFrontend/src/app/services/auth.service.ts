@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import * as moment from 'moment';
 import { shareReplay, tap } from 'rxjs/operators';
 import { Observable, ReplaySubject } from 'rxjs';
 import { CanActivate, Router } from '@angular/router';
+import * as dayjs from 'dayjs';
 
 @Injectable({
   providedIn: 'root'
@@ -22,13 +22,14 @@ export class AuthService {
   constructor(private _http: HttpClient) { }
 
   private setSession(authResult) {
-    const token = authResult.token;
-    const payload = this._helper.decodeToken(token);
-    const expiresAt = moment.unix(payload.exp);
+    let token = authResult.token;
+    let payload = this._helper.decodeToken(token);
+    let expiresAt = dayjs.unix(payload.exp);
     this._activeUserId = payload.user_id;
     this._userName = payload.username;
     localStorage.setItem('token', authResult.token);
     localStorage.setItem('expires_at', JSON.stringify(expiresAt.valueOf()));
+    console.log(localStorage.getItem('expires_at'));
     this.isAuthenticatedSubject.next(true);
   }
 
@@ -72,10 +73,14 @@ export class AuthService {
   }
 
   public refreshToken() {
-    if (moment().isBetween(this.getExpiration().subtract(1, 'days'), this.getExpiration())) {
+    const dayjs = require('dayjs');
+    const isBetween = require('dayjs/plugin/isBetween');
+    let now = dayjs();
+    dayjs.extend(isBetween);
+    if (now.isBetween(this.getExpiration().subtract(1, 'day'), this.getExpiration())) {
       return this._http.post(
         this.apiRoot.concat('refresh-token/'),
-        { token: this.token }
+        {token: this.token}
       ).pipe(
         tap(response => this.setSession(response)),
         shareReplay(),
@@ -87,11 +92,11 @@ export class AuthService {
     const expiration = localStorage.getItem('expires_at');
     const expiresAt = JSON.parse(expiration);
 
-    return moment(expiresAt);
+    return dayjs(expiresAt);
   }
 
   public isLoggedIn() {
-    return moment().isBefore(this.getExpiration());
+    return dayjs().isBefore(this.getExpiration());
   }
 
   public isLoggedObserv() {
@@ -106,8 +111,7 @@ export class AuthService {
 export class AuthInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const token = localStorage.getItem('token');
-
+    let token = localStorage.getItem('token');
     if (token) {
       const cloned = req.clone({
         headers: req.headers.set('Authorization', 'JWT '.concat(token))

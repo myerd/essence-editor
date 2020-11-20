@@ -1,7 +1,10 @@
 from django.conf.urls import url, include
 from . import views
-from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token
-from rest_framework_simplejwt import views as jwt_views
+from rest_framework_jwt.views import refresh_jwt_token
+from rest_framework.schemas import get_schema_view
+from rest_framework_swagger.renderers import SwaggerUIRenderer, OpenAPIRenderer
+
+schema_view = get_schema_view(title='Users API', renderer_classes=[OpenAPIRenderer, SwaggerUIRenderer])
 
 urlpatterns = [
     url(r'^api/card$', views.card_list),
@@ -30,4 +33,5 @@ urlpatterns = [
     url(r'^auth/refresh-token/', refresh_jwt_token),
     url(r'^auth/', include('rest_auth.urls')),
     url(r'^auth/signup/', include('rest_auth.registration.urls')),
+    url(r'^', schema_view, name="docs"),
 ]
